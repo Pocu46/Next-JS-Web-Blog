@@ -9,7 +9,7 @@ const Home = () => {
         Add articles and save them to favorites.
       </p>
 
-      <Button text="Start" style="bg-[#BCC6CC]" link="./post/create" />
+      <Button text="Start" style="btn-primary mt-5 bg-[#BCC6CC]" link="./post/create" />
     </div>
   )
 }
