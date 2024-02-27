@@ -1,8 +1,8 @@
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
-import "./globals.css";
 import Header from "@/components/Header";
 import WrapperComponent from "@/UI/WrapperComponent";
+import "./globals.css";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -11,11 +11,7 @@ export const metadata: Metadata = {
   description: "Create some articles to save them",
 };
 
-export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -23,6 +19,7 @@ export default function RootLayout({
         <WrapperComponent>
           {children}
         </WrapperComponent>
+        <div id="modalId" />
       </body>
     </html>
   );

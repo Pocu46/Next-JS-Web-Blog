@@ -1,6 +1,6 @@
 const CreatePost = () => {
   return(
-    <div>create post component</div>
+    <div>Create post component</div>
   )
 }
 
