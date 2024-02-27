@@ -1,6 +1,10 @@
-import {FC, LegacyRef, useRef} from "react";
+import React, {LegacyRef, useRef} from "react";
 
-const Modal: FC<string> = ({style, children}) => {
+type ModalProps = {
+  style: string,
+  children: React.ReactNode
+}
+const Modal: React.FC<ModalProps> = ({style, children}) => {
   const ref: LegacyRef<HTMLDialogElement> = useRef()
 
   return(
