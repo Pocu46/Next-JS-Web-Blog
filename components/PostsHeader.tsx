@@ -4,15 +4,11 @@ import React from 'react'
 import {usePathname} from "next/navigation";
 import Link from "next/link";
 
-type PostsHeaderProps = {
-  children: React.ReactNode
-}
-
-const PostsHeader: React.FC<PostsHeaderProps> = ({children}) => {
+const PostsHeader: React.FC = () => {
   const pathname: string = usePathname()
 
   return (
-    <div className="w-full max-w-md px-2 py-2 sm:px-0">
+    <div className="w-full max-w-md px-2 py-2 sm:px-0 mx-auto my-0">
       <nav className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
         <Link
           href='/post/posts'

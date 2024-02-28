@@ -3,7 +3,7 @@ import PostsHeader from "@/components/PostsHeader";
 
 const Posts = ({children}: { children: React.ReactNode }) => {
   return (
-    <div className="w-full flex justify-center items-center flex-col">
+    <div className="w-full flex items-center flex-col">
       <PostsHeader>
         {children}
       </PostsHeader>
