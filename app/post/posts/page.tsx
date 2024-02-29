@@ -1,6 +1,13 @@
+import Post from "@/components/Post";
+
 const Posts = () => {
   return(
-    <div>Posts component</div>
+    <Post
+      type="Note"
+      text="hello"
+      time={new Date().toLocaleString("en")}
+      isFavorite={false}
+      summary="some text" />
   )
 }
 

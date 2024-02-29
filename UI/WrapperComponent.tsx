@@ -1,12 +1,12 @@
 
 type WrapperComponentProps = {
-  className?: string;
+  style?: string;
   children: React.ReactNode;
 }
 
-const WrapperComponent:React.FC<WrapperComponentProps> = ({className, children}) => {
+const WrapperComponent:React.FC<WrapperComponentProps> = ({style, children}) => {
   return (
-    <div className={`w-[960px] mx-auto my-0 min-h-[calc(100vh_-_64px)] flex justify-center items-start ${className}`}>{children}</div>
+    <div className={style}>{children}</div>
   )
 }
 

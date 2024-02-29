@@ -17,11 +17,11 @@ const CreatePost = () => {
         />
       </div>
       <div className="mb-2 flex flex-col">
-        <label htmlFor="text" className="form-label">Text *</label>
+        <label htmlFor="text" className="mb-2">Text *</label>
         <textarea
           id="text"
           name="text"
-          className="w-[960px] px-3 py-1.5 rounded-md border-2 border-solid border-[#99aec3]"
+          className="w-[960px] px-3 py-1.5 rounded-md border-2 border-solid border-[#99aec3] min-h-[65px]"
           placeholder="Enter your article text"
           required
         />

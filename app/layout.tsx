@@ -16,7 +16,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <WrapperComponent>
+        <WrapperComponent style="m-auto w-[960px] h-[calc(98vh_-_64px)]">
           {children}
         </WrapperComponent>
         <div id="modalId" />
