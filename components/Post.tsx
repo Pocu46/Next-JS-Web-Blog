@@ -19,8 +19,8 @@ const Post: React.FC<PostProps> = ({summary, time, type, text, isFavorite}) => {
     : 'bg-[white] text-[#c6c601] w-[63px] h-9 text-center flex justify-center items-center text-[large] mx-[15px] my-0 rounded-[5px]'
 
   return(
-    <WrapperComponent style="w-[960px] mx-auto my-0 rounded-xl border-[3px] rounded-xl border-[3px] border-solid border-[#bccde2]">
-        <header className="bg-[#bccde2] flex justify-around items-center">
+    <WrapperComponent style="w-full mx-auto my-2 rounded-xl border-[3px] rounded-xl border-[3px] border-solid border-[#bccde2]">
+        <header className="bg-[#bccde2] py-2 flex justify-around items-center">
           <p className="max-w-[150px]">{time}</p>
           <p className="w-[150px] h-[25px] overflow-y-hidden">
             <b>{summary}</b>
@@ -44,7 +44,7 @@ const Post: React.FC<PostProps> = ({summary, time, type, text, isFavorite}) => {
             type="button"
             action={() => {}}
             text="Edit"
-            style="btn-primary bg-[#88bddd]"
+            style="btn-primary bg-[#528fd9]"
             link="/post/posts"
             isButton={true}
           />
@@ -52,7 +52,7 @@ const Post: React.FC<PostProps> = ({summary, time, type, text, isFavorite}) => {
             type="button"
             action={() => {}}
             text="Delete"
-            style="btn-primary bg-[red] mx-3"
+            style="btn-primary bg-[#de5050] mx-3"
             link="/post/posts"
             isButton={true}
           />
