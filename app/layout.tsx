@@ -16,9 +16,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <WrapperComponent style="m-auto w-[960px] h-[calc(100vh_-_64px)] overflow-scroll">
+
+        <WrapperComponent style="m-auto w-[960px] h-[calc(100vh_-_64px)]">
           {children}
         </WrapperComponent>
+
         <div id="modalId" />
       </body>
     </html>

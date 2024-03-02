@@ -20,7 +20,7 @@ const Posts = async () => {
   const postsReverse: PostType[] = posts.reverse()
 
   return (
-    <ul className="post-lists__container">
+    <ul className="post-lists__container h-[calc(100vh_-_64px_-_64px)] overflow-y-scroll">
       {postsReverse.map(post => {
         return (
           <li key={post.id} className="post-lists__item">
