@@ -17,5 +17,5 @@ type PostResponse = {
 }
 
 export type PostsData = {
-  [key: string]: PostResponse;
+  [id: string]: PostResponse;
 }
