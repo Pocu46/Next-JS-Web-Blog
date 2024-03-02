@@ -1,13 +1,18 @@
 import {PostsData, PostType} from "@/utils/models";
 import {getData} from "@/utils/api";
 import Post from "@/components/Post";
+import type {Metadata} from "next";
 
-const Page = async () => {
+export const metadata: Metadata = {
+  title: "Favorites posts",
+};
+
+const Favorites = async () => {
   const data: PostsData = await getData()
   const posts: PostType[] = []
 
   for (let key in data) {
-    if (data[key].isFavorite === true) {
+    if (data[key].isFavorite) {
       posts.push({
         id: key,
         summary: data[key].summary,
@@ -52,4 +57,4 @@ const Page = async () => {
   )
 }
 
-export default Page;
+export default Favorites;

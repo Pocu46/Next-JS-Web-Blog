@@ -1,5 +1,10 @@
 import Button from "@/UI/Button";
 import WrapperComponent from "@/UI/WrapperComponent";
+import type {Metadata} from "next";
+
+export const metadata: Metadata = {
+  title: "Create post",
+};
 
 const CreatePost = () => {
   return(

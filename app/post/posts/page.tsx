@@ -1,6 +1,11 @@
 import Post from "@/components/Post";
 import {getData} from "@/utils/api";
 import {PostsData, PostType} from "@/utils/models";
+import type {Metadata} from "next";
+
+export const metadata: Metadata = {
+  title: "Posts list",
+};
 
 const Posts = async () => {
   const data: PostsData = await getData()
