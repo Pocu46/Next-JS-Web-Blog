@@ -11,17 +11,17 @@ export const metadata: Metadata = {
   description: "Create some articles to save them",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
+export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
+        <Header/>
 
         <WrapperComponent style="m-auto w-[960px] h-[calc(100vh_-_64px)]">
           {children}
         </WrapperComponent>
 
-        <div id="modalId" />
+        <div id="modalId"/>
       </body>
     </html>
   );
