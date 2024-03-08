@@ -7,7 +7,7 @@ type ButtonProps = {
   action?: () => void;
   link: string;
   isButton?: boolean;
-  type: "submit" | "reset" | "button" | undefined
+  type?: "submit" | "reset" | "button" | undefined
 };
 const Button: React.FC<ButtonProps> = ({text, style, action, link, isButton, type}) => {
   if(isButton) {

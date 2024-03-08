@@ -1,5 +1,5 @@
 import {PostsData, PostType} from "@/utils/models";
-import {getData} from "@/utils/api";
+import {getPosts} from "@/utils/api";
 import Post from "@/components/Post";
 import type {Metadata} from "next";
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const Favorites = async () => {
-  const data: PostsData = await getData()
+  const data: PostsData = await getPosts()
   const posts: PostType[] = []
 
   for (let key in data) {
@@ -34,7 +34,7 @@ const Favorites = async () => {
 
   return (
     <>
-      {isEmpty && <p className="text-center text-4xl text-[#14077c]">No Posts are added to Favorites!</p>}
+      {isEmpty && <p className="text-center text-4xl text-[#14077c]">No data is added to Favorites!</p>}
 
       <ul className="post-lists__container h-[calc(100vh_-_64px_-_64px)] overflow-y-scroll">
         {postsReverse.map(post => {

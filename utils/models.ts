@@ -8,7 +8,7 @@ export type PostType = {
   page?: string
 }
 
-type PostResponse = {
+export type PostResponse = {
   isFavorite: boolean;
   summary: string;
   text: string;

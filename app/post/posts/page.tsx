@@ -1,14 +1,24 @@
+"use client"
+
 import Post from "@/components/Post";
-import {getData} from "@/utils/api";
-import {PostsData, PostType} from "@/utils/models";
+import {getPostsUI} from "@/utils/api";
+import {PostType} from "@/utils/models";
 import type {Metadata} from "next";
+import {useQuery} from "@tanstack/react-query";
+import Loader from "@/components/Loader";
+import Error from "@/components/Error";
 
-export const metadata: Metadata = {
-  title: "Posts list",
-};
+// export const metadata: Metadata = {
+//   title: "Posts list",
+// };
 
-const Posts = async () => {
-  const data: PostsData = await getData()
+const Posts = () => {
+  const {data, error, isError, isPending} = useQuery({
+    queryKey: ['posts'],
+    queryFn: getPostsUI,
+    refetchOnWindowFocus: false,
+  })
+
   const posts: PostType[] = []
 
   for (let key in data) {
@@ -24,20 +34,20 @@ const Posts = async () => {
 
   const postsReverse: PostType[] = posts.reverse()
 
-  let isEmpty: boolean = false
-
-  if(postsReverse.length === 0) {
-    isEmpty = true
+  if (data && postsReverse.length === 0 && !error) {
+    return (
+      <p className="text-center text-4xl text-[#14077c] w-full">No data is added to Posts!</p>
+    )
   }
+  if (isPending) return <Loader/>
+  if (isError) return <Error error={error}/>
 
   return (
     <>
-      {isEmpty && <p className="text-center text-4xl text-[#14077c]">No Posts are added to Favorites!</p>}
-
-      <ul className="post-lists__container h-[calc(100vh_-_64px_-_64px)] overflow-y-scroll">
+      <ul className="h-[calc(100vh_-_64px_-_64px)] overflow-y-scroll">
         {postsReverse.map(post => {
           return (
-            <li key={post.id} className="post-lists__item">
+            <li key={post.id}>
               <Post
                 id={post.id}
                 time={post.time}
