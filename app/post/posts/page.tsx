@@ -32,7 +32,7 @@ const Posts = () => {
 
   if (data && postsReverse.length === 0 && !error) return <p className="text-center text-4xl text-[#14077c] w-full">No data is added to Posts!</p>
   if (isPending) return <Loader/>
-  if (isError) return <Error error={error}/>
+  if (isError) return <Error reset={()=>{}} error={error}/>
 
   return (
     <ul className="h-[calc(100vh_-_64px_-_64px)] overflow-y-scroll">

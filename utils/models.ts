@@ -16,6 +16,10 @@ export type PostResponse = {
   type: string;
 }
 
+type Id = {
+  id: string
+}
+
 export type PostsData = {
   [id: string]: PostResponse;
 }

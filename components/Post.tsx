@@ -1,6 +1,5 @@
 "use client"
 
-import WrapperComponent from "@/UI/WrapperComponent";
 import Button from "@/UI/Button";
 import React from "react";
 import Image from "next/image";
@@ -19,7 +18,7 @@ const Post: React.FC<PostProps> = ({summary, time, type, text, isFavorite}) => {
     : 'bg-[white] text-[#c6c601] w-[63px] h-9 text-center flex justify-center items-center text-[large] mx-[15px] my-0 rounded-[5px]'
 
   return(
-    <WrapperComponent style="w-full mx-auto mb-2 border-[3px] rounded-xl border-solid border-[#bccde2]">
+    <div className="w-full mx-auto mb-2 border-[3px] rounded-xl border-solid border-[#bccde2]">
         <header className="bg-[#bccde2] py-2 flex justify-around items-center">
           <p className="max-w-[150px]">{time}</p>
           <p className="w-[150px] h-[25px] overflow-y-hidden">
@@ -60,12 +59,12 @@ const Post: React.FC<PostProps> = ({summary, time, type, text, isFavorite}) => {
             type="button"
             action={() => {}}
             text={!isFavorite ? 'Favorite' : 'Unfavorite'}
-            style="btn-primary bg-[#dede01]"
+            style={!isFavorite ? "btn-primary bg-[#dede01]" : "btn-primary bg-[#95aeb6]"}
             link="/post/posts"
             isButton={true}
           />
         </footer>
-    </WrapperComponent>
+    </div>
   )
 }
 
