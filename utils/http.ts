@@ -1,4 +1,4 @@
-import {PostsData, PostType} from "@/utils/models";
+import {PostsData, PostType, SendPostProps} from "@/utils/models";
 import moment from "moment";
 import {QueryClient} from "@tanstack/react-query";
 
@@ -31,7 +31,7 @@ export const getPostsUI = async ():Promise<PostsData> => {
   return data
 }
 
-export const sendPost = async (summary: string, text: string, type: string | PostType) => {
+export const sendPost = async ({summary, text, type}: SendPostProps) => {
   const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
   const payload = {
     method: 'POST',

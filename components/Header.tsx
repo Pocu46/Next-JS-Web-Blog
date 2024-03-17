@@ -51,11 +51,8 @@ const Header = () => {
         <span className="h-[3px] w-[26px] bg-[white]"/>
       </div>
 
-      <p className="header-text text-white items-center px-2 mx-2">Create your posts to save them!</p>
-
-
       <Modal
-        style="ml-0 mr-auto mt-16 mb-0 w-[400px] h-[calc(100vh_-_64px)] bg-[#000] relative left-0 bottom-0 modal"
+        style="ml-0 mr-auto mt-16 mb-0 w-[400px] h-[calc(100vh_-_64px)] bg-[rgba(0,0,0,0.85)] relative left-0 bottom-0 modal"
         open={isOpened}
         onClose={burgerClose}
         root="modalId"

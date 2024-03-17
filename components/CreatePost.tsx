@@ -5,12 +5,10 @@ import Button from "@/UI/Button";
 import {useMutation} from "@tanstack/react-query";
 import {useRouter} from "next/navigation";
 import {queryClient, sendPost} from "@/utils/http";
-import {PostType} from "@/utils/models";
+import Loader from "@/components/Loader";
+import Error from "@/components/Error";
 
 const CreatePost: React.FC = () => {
-  const [summary, setSummary] = useState<string>('')
-  const [text, setText] = useState<string>('')
-  const [type, setType] = useState<PostType | string>('')
   const [summaryError, setSummaryError] = useState<boolean>(false);
   const [textError, setTextError] = useState<boolean>(false);
   const summaryRef = useRef<HTMLInputElement>(null);
@@ -18,7 +16,8 @@ const CreatePost: React.FC = () => {
   const typeRef = useRef<HTMLSelectElement>(null);
   const router = useRouter()
 
-  const {mutate, isPending, isError, error} = useMutation<void, [string, string, PostType]>({
+  const {mutate, isPending, isError, error} = useMutation<void, Error, string, unknown>({
+    mutationKey: ['createPost'],
     mutationFn: sendPost,
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -26,34 +25,17 @@ const CreatePost: React.FC = () => {
         exact: true
       });
       router.replace('/post/posts')
-      // router.push('/post/posts')
     }
   });
-
-  const summaryHandler = (event: React.ChangeEventHandler<HTMLInputElement>) => {
-    const timer = setTimeout(() => {
-      setSummary(event.target.value)
-    }, 1500)
-
-    return () => clearTimeout(timer)
-  }
-
-  const textHandler = (event: React.ChangeEventHandler<HTMLTextAreaElement>) => {
-    const timer = setTimeout(() => {
-      setText(event.target.value)
-    }, 1500)
-
-    return () => clearTimeout(timer)
-  }
-
-  const typeHandler = (event: React.ChangeEventHandler<HTMLSelectElement>) => {
-    setType(event.target.value)
-  }
 
   const createPostHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    mutate(summaryRef.current.value, textRef.current.value, typeRef.current.value);
+    mutate({
+      summary: summaryRef.current.value,
+      text: textRef.current.value,
+      type: typeRef.current.value
+    });
   };
 
   const summaryStyles: string = summaryError ? "w-full px-3 py-1.5 bg-[#e5b6c0] rounded-md border-2 border-solid border-[red]" : "w-full px-3 py-1.5 rounded-md border-2 border-solid border-[#99aec3]"
@@ -63,7 +45,7 @@ const CreatePost: React.FC = () => {
     if (summaryRef.current.value && summaryRef.current.value.trim().length < 3) {
       setSummaryError(true);
     }
-    if (summaryError && summaryRef.current.value && summaryRef.current.value.trim().length > 3) {
+    if (summaryError && summaryRef.current.value && summaryRef.current.value.trim().length >= 3) {
       setSummaryError(false);
     }
   }
@@ -77,6 +59,9 @@ const CreatePost: React.FC = () => {
     }
   }
 
+  if (isPending) return <Loader/>
+  if (isError) return <Error reset={() => {}} error={error}/>
+
   return (
     <form className="w-full" onSubmit={createPostHandler}>
       <h2 className="text-center text-3xl font-[500] leading-[1.2] mb-2">Create New Post</h2>
@@ -85,11 +70,8 @@ const CreatePost: React.FC = () => {
         <label htmlFor="summary" className="mb-2">Summary *</label>
         <input
           id="summary"
-          name="summary"
           type="text"
           ref={summaryRef}
-          // defaultValue={summary}
-          onChange={summaryHandler}
           onBlur={summaryBlurHandler}
           className={summaryStyles}
           placeholder="Enter your summary"
@@ -100,10 +82,7 @@ const CreatePost: React.FC = () => {
         <label htmlFor="text" className="mb-2">Text *</label>
         <textarea
           id="text"
-          name="text"
           ref={textRef}
-          // defaultValue={text}
-          onChange={textHandler}
           onBlur={textBlurHandler}
           className={textStyles}
           placeholder="Enter your article text"
@@ -114,7 +93,6 @@ const CreatePost: React.FC = () => {
       <div className="w-full my-2 flex flex-row rounded-md border-2 border-solid border-[#99aec3]">
         <select
           name="type"
-          onChange={typeHandler}
           ref={typeRef}
           className="w-full px-3 py-1.5"
         >
