@@ -1,10 +1,10 @@
-import {PostsData, PostType} from "@/utils/models";
-import {getPosts} from "@/utils/api";
+import {PostsData, PostsType} from "@/utils/models";
+import {getPosts} from "@/utils/http";
 import Post from "@/components/Post";
 
 const Favorites = async () => {
   const data: PostsData = await getPosts()
-  const posts: PostType[] = []
+  const posts: PostsType[] = []
 
   for (let key in data) {
     if (data[key].isFavorite) {
@@ -19,7 +19,7 @@ const Favorites = async () => {
     }
   }
 
-  const postsReverse: PostType[] = posts.reverse()
+  const postsReverse: PostsType[] = posts.reverse()
 
   if (posts.length === 0) return <p className="text-center text-4xl text-[#14077c]">No data is added to Favorites!</p>
 

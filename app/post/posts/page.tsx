@@ -1,8 +1,8 @@
 "use client"
 
 import Post from "@/components/Post";
-import {getPostsUI} from "@/utils/api";
-import {PostType} from "@/utils/models";
+import {getPostsUI} from "@/utils/http";
+import {PostsType} from "@/utils/models";
 import {useQuery} from "@tanstack/react-query";
 import Loader from "@/components/Loader";
 import Error from "@/components/Error";
@@ -15,7 +15,7 @@ const Posts = () => {
     refetchOnWindowFocus: false,
   })
 
-  const posts: PostType[] = []
+  const posts: PostsType[] = []
 
   for (let key in data) {
     posts.push({
@@ -28,7 +28,7 @@ const Posts = () => {
     })
   }
 
-  const postsReverse: PostType[] = posts.reverse()
+  const postsReverse: PostsType[] = posts.reverse()
 
   if (data && postsReverse.length === 0 && !error) return <p className="text-center text-4xl text-[#14077c] w-full">No data is added to Posts!</p>
   if (isPending) return <Loader/>

@@ -59,7 +59,8 @@ const Post: React.FC<PostProps> = ({summary, time, type, text, isFavorite}) => {
             type="button"
             action={() => {}}
             text={!isFavorite ? 'Favorite' : 'Unfavorite'}
-            style={!isFavorite ? "btn-primary bg-[#dede01]" : "btn-primary bg-[#95aeb6]"}
+            // style={!isFavorite ? "btn-primary bg-[#dede01]" : "btn-primary bg-[#95aeb6]"}
+            style={!isFavorite ? "btn-primary bg-[#dede01]" : "btn-primary bg-[gold]"}
             link="/post/posts"
             isButton={true}
           />

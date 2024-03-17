@@ -1,4 +1,4 @@
-export type PostType = {
+export type PostsType = {
   id: string,
   summary: string,
   text: string,
@@ -23,3 +23,5 @@ type Id = {
 export type PostsData = {
   [id: string]: PostResponse;
 }
+
+export type PostType = "Note" | "News";
