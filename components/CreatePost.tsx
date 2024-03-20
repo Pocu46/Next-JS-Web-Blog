@@ -7,6 +7,7 @@ import {useRouter} from "next/navigation";
 import {queryClient, sendPost} from "@/utils/http";
 import Loader from "@/components/Loader";
 import Error from "@/components/Error";
+import {SendPostProps} from "@/utils/models";
 
 const CreatePost: React.FC = () => {
   const [summaryError, setSummaryError] = useState<boolean>(false);
@@ -16,7 +17,7 @@ const CreatePost: React.FC = () => {
   const typeRef = useRef<HTMLSelectElement>(null);
   const router = useRouter()
 
-  const {mutate, isPending, isError, error} = useMutation<void, Error, string, unknown>({
+  const {mutate, isPending, isError, error} = useMutation<void, Error, SendPostProps, unknown>({
     mutationKey: ['createPost'],
     mutationFn: sendPost,
     onSuccess: () => {
@@ -32,9 +33,9 @@ const CreatePost: React.FC = () => {
     event.preventDefault();
 
     mutate({
-      summary: summaryRef.current.value,
-      text: textRef.current.value,
-      type: typeRef.current.value
+      summary: summaryRef.current?.value,
+      text: textRef.current?.value,
+      type: typeRef.current?.value
     });
   };
 
@@ -42,19 +43,19 @@ const CreatePost: React.FC = () => {
   const textStyles: string = textError ? "w-full px-3 py-1.5 bg-[#e5b6c0] rounded-md border-2 border-solid border-[red]" : "w-full px-3 py-1.5 rounded-md border-2 border-solid border-[#99aec3]"
 
   const summaryBlurHandler = () => {
-    if (summaryRef.current.value && summaryRef.current.value.trim().length < 3) {
+    if (summaryRef.current?.value && summaryRef.current.value.trim().length < 3) {
       setSummaryError(true);
     }
-    if (summaryError && summaryRef.current.value && summaryRef.current.value.trim().length >= 3) {
+    if (summaryError && summaryRef.current?.value && summaryRef.current.value.trim().length >= 3) {
       setSummaryError(false);
     }
   }
 
   const textBlurHandler = () => {
-    if (textRef.current.value && textRef.current.value.trim().length < 5) {
+    if (textRef.current?.value && textRef.current.value.trim().length < 5) {
       setTextError(true);
     }
-    if (textError && textRef.current.value && textRef.current.value.trim().length >= 5) {
+    if (textError && textRef.current?.value && textRef.current.value.trim().length >= 5) {
       setTextError(false);
     }
   }

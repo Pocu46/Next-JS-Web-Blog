@@ -1,11 +1,11 @@
 "use client"
 
-import {useState} from "react";
+import React, {useState} from "react";
 import Modal from "@/components/Modal";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 
-const BurgerMenu = ({action}: () => void) => {
+const BurgerMenu: React.FC<{ action: () => void }> = ({action}) => {
   const pathname: string = usePathname()
 
   const active: string = "bg-[#506d5d] w-full h-[4rem] flex justify-center items-center text-3xl font-[200] leading-[1] text-[white] hover:bg-[#43414c] hover:text-[white] hover:underline"

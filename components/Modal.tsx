@@ -10,25 +10,37 @@ type ModalProps = {
 }
 
 const Modal: React.FC<ModalProps> = ({children, style, open, onClose, root}) => {
-  const dialogRef = useRef(null)
+  const dialogRef = useRef<HTMLDialogElement | null>(null)
 
-  const handleClickOutside = (event) => {
-    const target = event.target.className
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = (event.target as HTMLElement).className
 
     if (target.includes('modal')) {
-      dialogRef.current.close()
+      dialogRef.current?.close()
       document.removeEventListener('click', handleClickOutside)
     }
   }
 
   useEffect(() => {
-    if(open) {
-      dialogRef.current.showModal()
-      document.addEventListener('click', handleClickOutside);
+    if (open) {
+      if (dialogRef.current) {
+        dialogRef.current.showModal();
+        document.addEventListener("click", handleClickOutside);
+      }
+    } else {
+      if (dialogRef.current) {
+        dialogRef.current.close();
+        document.removeEventListener("click", handleClickOutside);
+      }
     }
 
-    // return () => dialogRef.current?.close()
-  }, [open])
+    return () => {
+      if (dialogRef.current) {
+        dialogRef.current.close();
+        document.removeEventListener("click", handleClickOutside);
+      }
+    };
+  }, [open]);
 
   return (
     <ClientPortal show={open} root={root}>

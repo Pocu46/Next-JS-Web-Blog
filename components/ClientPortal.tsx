@@ -4,7 +4,7 @@ import {createPortal} from "react-dom";
 type ClientPortalType = {
   children: React.ReactNode;
   show?: boolean;
-  onClose?: () => void;
+  onClose?: () => void | null;
   root: string;
 };
 const ClientPortal: React.FC<ClientPortalType> = ({children, show, root}) => {
