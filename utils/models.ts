@@ -27,7 +27,17 @@ export type PostsData = {
 export type PostType = "Note" | "News";
 
 export type SendPostProps = {
-  summary?: string;
-  text?: string;
-  type?: string | PostType
+  summary: string;
+  text: string;
+  type: string | PostType
+}
+
+export type postActionProps = {
+  id: string;
+  summary: string;
+  text: string;
+  type: string;
+  time: string;
+  isFavorite: boolean;
+  method: "PUT" | "DELETE"
 }

@@ -47,7 +47,6 @@ const Posts = () => {
               text={post.text}
               type={post.type}
               isFavorite={post.isFavorite}
-              page="lists"
             />
           </li>
         )

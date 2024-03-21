@@ -27,7 +27,7 @@ const CreatePost: React.FC = () => {
       });
       router.replace('/post/posts')
     }
-  });
+  })
 
   const createPostHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
