@@ -47,12 +47,12 @@ const Header = () => {
         onClick={burgerOpen}
       >
         <span className="h-[3px] w-[26px] bg-[white]"/>
-        <span className="burger-line"/>
+        <span className={isOpened ? "h-[3px] w-[26px] bg-[white] my-2" : "burger-line"}/>
         <span className="h-[3px] w-[26px] bg-[white]"/>
       </div>
 
       <Modal
-        style="ml-0 mr-auto mt-16 mb-0 w-[400px] h-[calc(100vh_-_64px)] bg-[rgba(30,58,138,0.2)] relative left-0 bottom-0 modal"
+        style="ml-0 mr-auto mt-16 mb-0 w-[400px] h-[calc(100vh_-_64px)] bg-[rgba(30,58,138,0.2)] relative left-0 bottom-0 modal backdrop:bg-[rgba(0,0,0,0.2)] backdrop:absolute backdrop:bottom-0"
         open={isOpened}
         onClose={burgerClose}
         root="modalId"
