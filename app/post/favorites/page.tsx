@@ -7,7 +7,7 @@ import {useQuery} from "@tanstack/react-query";
 import Loader from "@/components/Loader";
 import Error from "@/components/Error";
 
-const Favorites = async () => {
+const Favorites = () => {
   const {data, error, isError, isPending} = useQuery({
     queryKey: ['posts'],
     queryFn: getPostsUI,
