@@ -8,7 +8,7 @@ import {usePathname} from "next/navigation";
 const BurgerMenu: React.FC<{ action: () => void }> = ({action}) => {
   const pathname: string = usePathname()
 
-  const active: string = "bg-[#88bddd] underline w-full h-[4rem] flex justify-center items-center text-[black] text-3xl font-[200] leading-[1] text-[white] hover:bg-[#000] hover:text-[white]"
+  const active: string = "bg-[#88bddd] w-full h-[4rem] flex justify-center items-center text-[black] text-3xl font-[200] leading-[1] text-[white] hover:bg-[#000] hover:text-[white]"
   const style: string = "w-full h-[4rem] flex justify-center items-center text-3xl font-[200] leading-[1] text-[white] hover:bg-[#000] hover:text-[white]"
 
   return (
@@ -52,7 +52,7 @@ const Header = () => {
       </div>
 
       <Modal
-        style="ml-0 mr-auto mt-16 mb-0 w-[400px] h-[calc(100vh_-_64px)] bg-[rgba(30,58,138,0.2)] relative left-0 bottom-0 modal backdrop:bg-[rgba(0,0,0,0.2)] backdrop:absolute backdrop:bottom-0"
+        style="ml-0 mr-auto mt-16 mb-0 w-[400px] h-[calc(100vh_-_64px)] bg-[rgba(30,58,138,0.2)] relative left-0 bottom-0 modal backdrop:bg-[rgba(0,0,0,0.2)]"
         open={isOpened}
         onClose={burgerClose}
         root="modalId"

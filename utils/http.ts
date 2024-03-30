@@ -1,22 +1,22 @@
-import {postActionProps, PostsData, SendPostProps} from "@/utils/models";
+import {editPostProps, postActionProps, PostsData, SendPostProps} from "@/utils/models";
 import moment from "moment";
 import {QueryClient} from "@tanstack/react-query";
 
 export const queryClient:QueryClient = new QueryClient()
 
-export const getPosts = async ():Promise<PostsData> => {
-  const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
-  // const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/'
-
-  const res = await fetch(url,{ cache: "no-store" })
-  // const res = await fetch(process.env.DB_URL,{ cache: 'force-cache' })
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-  const data = await res.json()
-
-  return data
-}
+// export const getPosts = async ():Promise<PostsData> => {
+//   const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
+//   // const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/'
+//
+//   const res = await fetch(url,{ cache: "no-store" })
+//   // const res = await fetch(process.env.DB_URL,{ cache: 'force-cache' })
+//   if (!res.ok) {
+//     throw new Error('Failed to fetch data')
+//   }
+//   const data = await res.json()
+//
+//   return data
+// }
 
 export const getPostsUI = async ():Promise<PostsData> => {
   const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
@@ -36,8 +36,8 @@ export const sendPost = async ({summary, text, type}: SendPostProps) => {
   const payload = {
     method: 'POST',
     body: JSON.stringify({
-      summary: summary.trim(),
-      text: text.trim(),
+      summary: summary?.trim(),
+      text: text?.trim(),
       type: type,
       isFavorite: false,
       time: moment().format('MMMM Do YYYY, h:mm:ss a')
@@ -100,5 +100,30 @@ export const postAction = async ({id, summary, text, type, time, isFavorite, met
     }
   } catch {
     throw Error(message)
+  }
+}
+
+export const editPost = async ({id, summary, text, type, isFavorite}: editPostProps) => {
+  const url: string = `https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts/${id}.json`
+
+  const payload = {
+    method: 'PATCH',
+    body: JSON.stringify({
+      summary,
+      text,
+      type,
+      isFavorite,
+      time: moment().format('MMMM Do YYYY, h:mm:ss a')
+    })
+  }
+
+  try {
+    const response = await fetch(url, payload)
+
+    if (!response?.ok) {
+      throw Error("Post isn't edited. Please try again later!")
+    }
+  } catch {
+    throw Error("Post isn't edited. Please try again later!")
   }
 }

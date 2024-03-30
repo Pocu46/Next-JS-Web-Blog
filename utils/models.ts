@@ -16,10 +16,6 @@ export type PostResponse = {
   type: string;
 }
 
-type Id = {
-  id: string
-}
-
 export type PostsData = {
   [id: string]: PostResponse;
 }
@@ -27,17 +23,25 @@ export type PostsData = {
 export type PostType = "Note" | "News";
 
 export type SendPostProps = {
-  summary: string;
-  text: string;
-  type: string | PostType
+  summary?: string;
+  text?: string;
+  type?: string | PostType
 }
 
 export type postActionProps = {
   id: string;
   summary: string;
   text: string;
-  type: string;
+  type: string | PostType;
   time: string;
   isFavorite: boolean;
   method: "PUT" | "DELETE"
+}
+
+export type editPostProps = {
+  id: string;
+  summary: string;
+  text: string;
+  isFavorite: boolean;
+  type: string | PostType
 }

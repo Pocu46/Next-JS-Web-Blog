@@ -1,21 +1,39 @@
 "use client"
 
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Button from "@/UI/Button";
 import {useMutation} from "@tanstack/react-query";
 import {useRouter} from "next/navigation";
-import {queryClient, sendPost} from "@/utils/http";
+import {editPost, queryClient, sendPost} from "@/utils/http";
 import Loader from "@/components/Loader";
 import Error from "@/components/Error";
-import {SendPostProps} from "@/utils/models";
+import {editPostProps, SendPostProps} from "@/utils/models";
 
-const CreatePost: React.FC = () => {
+type CreatePostProps = {
+  id: string;
+  summaryValue?: string;
+  textValue?: string;
+  typeValue?: string;
+  isFavorite: boolean;
+  action: () => void;
+  headingText: string;
+  buttonText: string;
+}
+const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typeValue, isFavorite, action,  headingText, buttonText}) => {
   const [summaryError, setSummaryError] = useState<boolean>(false);
   const [textError, setTextError] = useState<boolean>(false);
   const summaryRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const typeRef = useRef<HTMLSelectElement>(null);
   const router = useRouter()
+
+  useEffect(() => {
+    if(summaryValue && textValue && typeValue) {
+      summaryRef.current.value = summaryValue
+      textRef.current.value = textValue
+      typeRef.current.value = typeValue
+    }
+  }, [])
 
   const {mutate, isPending, isError, error} = useMutation<void, Error, SendPostProps, unknown>({
     mutationKey: ['createPost'],
@@ -26,6 +44,16 @@ const CreatePost: React.FC = () => {
         exact: true
       });
       router.replace('/post/posts')
+    }
+  })
+  const {mutate: editPostMethod} = useMutation<void, Error, editPostProps, unknown>({
+    mutationKey: ['editPost'],
+    mutationFn: editPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['posts'],
+        exact: true
+      });
     }
   })
 
@@ -60,12 +88,24 @@ const CreatePost: React.FC = () => {
     }
   }
 
+  const editPostHandler = () => {
+    editPostMethod({
+      id,
+      summary: summaryRef.current?.value,
+      type: typeRef.current?.value,
+      text: textRef.current?.value,
+      isFavorite
+    })
+
+    action()
+  }
+
   if (isPending) return <Loader/>
   if (isError) return <Error reset={() => {}} error={error}/>
 
   return (
-    <form className="w-full" onSubmit={createPostHandler}>
-      <h2 className="text-center text-3xl font-[500] leading-[1.2] mb-2">Create New Post</h2>
+    <form className="w-full" onSubmit={buttonText === "Edit" ? editPostHandler : createPostHandler}>
+      <h2 className="text-center text-3xl font-[500] leading-[1.2] mb-2">{headingText}</h2>
 
       <div className="my-2 flex flex-col">
         <label htmlFor="summary" className="mb-2">Summary *</label>
@@ -104,7 +144,7 @@ const CreatePost: React.FC = () => {
       </div>
 
       <Button
-        text="Create"
+        text={buttonText}
         style="btn-primary mt-5 bg-[#88bddd] m-auto"
         link="/post/posts"
         type="submit"

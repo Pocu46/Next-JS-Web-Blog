@@ -2,7 +2,7 @@ import CreatePost from "@/components/CreatePost";
 
 const CreatePostPage = () => {
   return(
-    <CreatePost />
+    <CreatePost headingText="Create New Post" buttonText="Create" />
   )
 }
 
