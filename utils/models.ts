@@ -39,9 +39,9 @@ export type postActionProps = {
 }
 
 export type editPostProps = {
-  id: string;
-  summary: string;
-  text: string;
-  isFavorite: boolean;
-  type: string | PostType
+  id?: string;
+  summary?: string;
+  text?: string;
+  isFavorite?: boolean;
+  type?: string | PostType
 }

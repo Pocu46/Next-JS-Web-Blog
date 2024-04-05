@@ -10,12 +10,12 @@ import Error from "@/components/Error";
 import {editPostProps, SendPostProps} from "@/utils/models";
 
 type CreatePostProps = {
-  id: string;
+  id?: string;
   summaryValue?: string;
   textValue?: string;
   typeValue?: string;
-  isFavorite: boolean;
-  action: () => void;
+  isFavorite?: boolean;
+  action?: () => void;
   headingText: string;
   buttonText: string;
 }
@@ -46,7 +46,7 @@ const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typ
       router.replace('/post/posts')
     }
   })
-  const {mutate: editPostMethod} = useMutation<void, Error, editPostProps, unknown>({
+  const {mutate: editPostMethod, isError: isEditEror, error: editEror} = useMutation<void, Error, editPostProps, unknown>({
     mutationKey: ['editPost'],
     mutationFn: editPost,
     onSuccess: () => {
@@ -102,6 +102,7 @@ const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typ
 
   if (isPending) return <Loader/>
   if (isError) return <Error reset={() => {}} error={error}/>
+  if (isEditEror) return <Error reset={() => {}} error={editEror}/>
 
   return (
     <form className="w-full" onSubmit={buttonText === "Edit" ? editPostHandler : createPostHandler}>
