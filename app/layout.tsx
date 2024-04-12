@@ -18,9 +18,9 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
       <html lang="en">
         <body className={inter.className}>
           <Header/>
-          <WrapperComponent style="m-auto w-[960px] h-[calc(100vh_-_64px)]">
+          <div className="m-auto w-[960px] h-[calc(100vh_-_64px)] md:max-lg:w-[768px] sm:max-md:w-[600px] max-sm:w-[540px]">
             {children}
-          </WrapperComponent>
+          </div>
           <div id="modalId"/>
         </body>
       </html>

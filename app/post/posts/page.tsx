@@ -52,7 +52,6 @@ const Posts = () => {
 
   const searchTextChangeHandlerKeyboard: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === 'Enter') {
-      // setSearch((event.target.value).trim())
       setSearch((searchRef.current.value).trim())
     }
   }
@@ -97,7 +96,6 @@ const Posts = () => {
       <div className="w-full flex justify-between gap-[15px]">
         <select onClick={filterHandler}
                 className="w-[120px] my-2 cursor-default rounded-lg bg-white py-1 pl-1 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm"
-                data-testid="dropdown-select"
         >
           <option>All</option>
           <option>Notes</option>
@@ -108,7 +106,7 @@ const Posts = () => {
           className="bg-[#1e3a8a33] w-full flex justify-around items-center my-2 cursor-default rounded-lg py-1 pl-1 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm"
         >
           <input
-            className="w-full h-[36px] px-1"
+            className="w-full h-[36px] px-1 rounded-lg"
             type="text"
             placeholder="Search Post"
             defaultValue={search}
