@@ -8,6 +8,7 @@ import {postActionProps} from "@/utils/models";
 import {postAction, queryClient} from "@/utils/http";
 import Modal from "@/components/Modal";
 import CreatePost from "@/components/CreatePost";
+import Checkbox from "@/UI/Checkbox";
 
 type PostProps = {
   id: string,
@@ -19,6 +20,7 @@ type PostProps = {
 }
 const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) => {
   const [isOpened, setIsOpened] = useState<boolean>(false)
+  const [isFull, setIsFull] = useState<boolean>(false)
   const {mutate: postActionHandler} = useMutation<void, Error, postActionProps, unknown>({
     mutationKey: ['favoriteStatusChange'],
     mutationFn: postAction,
@@ -52,6 +54,10 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
     document.body.style.overflow = ''
   }
 
+  const changeFullStateHandler = () => {
+    setIsFull((prev) => !prev)
+  }
+
   const typeClass: string = type === 'Note'
     ? 'bg-[white] text-[green] w-[63px] h-9 text-center flex justify-center items-center text-[large] mx-[15px] my-0 rounded-[5px]'
     : 'bg-[white] text-[#c6c601] w-[63px] h-9 text-center flex justify-center items-center text-[large] mx-[15px] my-0 rounded-[5px]'
@@ -59,12 +65,16 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
   return (
     <>
       <div className="w-full mx-auto mb-2 border-[3px] rounded-xl border-solid border-[#bccde2]">
-        <header className="bg-[#bccde2] py-2 flex justify-around items-center">
-          <p className="max-w-[150px]">{time}</p>
-          <p className="w-[150px] h-[25px] overflow-y-hidden">
-            <b>{summary}</b>
-          </p>
-          <div className="flex justify-between items-center">
+        <header className="bg-[#bccde2] py-2 flex justify-around items-center gap-2.5">
+          <p className="max-w-[150px] px-2">{time}</p>
+          {
+            isFull
+              ? <marquee className="w-full h-[25px] text-center"><b>{summary}</b></marquee>
+              : <p
+                className="w-full h-[25px] overflow-y-hidden text-center">
+                <b>{summary}</b></p>
+          }
+          <div className="flex justify-between items-center px-2 mx-2">
             <span className={typeClass}>{type}</span>
             <Image
               className="w-[25px] h-[25px]"
@@ -76,34 +86,38 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
           </div>
         </header>
 
-        <p
-          className="flex justify-around items-center text-left h-[150px] overflow-auto pt-2.5 px-[5px] py-0 bg-[white]">{text}</p>
+        <p className="flex justify-around items-center text-left h-[150px] overflow-auto pt-2.5 px-1.5 py-0 bg-[white]">{text}</p>
 
-        <footer className="bg-[#bccde2] flex justify-center items-center py-2">
-          <Button
-            type="button"
-            action={editOpen}
-            text="Edit"
-            style="btn-primary bg-[#528fd9]"
-            link="/post/posts"
-            isButton={true}
-          />
-          <Button
-            type="button"
-            action={deletePostHandler}
-            text="Delete"
-            style="btn-primary bg-[#de5050] mx-3"
-            link="/post/posts"
-            isButton={true}
-          />
-          <Button
-            type="button"
-            action={favoriteStatusChangeHandler}
-            text={!isFavorite ? 'Favorite' : 'Unfavorite'}
-            style={!isFavorite ? "btn-primary bg-[#dede01]" : "btn-primary bg-[gold]"}
-            link="/post/posts"
-            isButton={true}
-          />
+        <footer className="bg-[#bccde2] flex justify-center items-center flex-col">
+          <div>
+            <Checkbox action={changeFullStateHandler} />
+          </div>
+          <div className="flex justify-center items-center py-2">
+            <Button
+              type="button"
+              action={editOpen}
+              text="Edit"
+              style="btn-primary bg-[#528fd9]"
+              link="/post/posts"
+              isButton={true}
+            />
+            <Button
+              type="button"
+              action={deletePostHandler}
+              text="Delete"
+              style="btn-primary bg-[#de5050] mx-3"
+              link="/post/posts"
+              isButton={true}
+            />
+            <Button
+              type="button"
+              action={favoriteStatusChangeHandler}
+              text={!isFavorite ? 'Favorite' : 'Unfavourite'}
+              style={!isFavorite ? "btn-primary bg-[#dede01]" : "btn-primary bg-[gold]"}
+              link="/post/posts"
+              isButton={true}
+            />
+          </div>
         </footer>
       </div>
 
