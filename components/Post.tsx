@@ -70,9 +70,7 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
           {
             isFull
               ? <marquee className="w-full h-[25px] text-center"><b>{summary}</b></marquee>
-              : <p
-                className="w-full h-[25px] overflow-y-hidden text-center">
-                <b>{summary}</b></p>
+              : <p className="w-full h-[25px] overflow-y-hidden text-center"><b>{summary}</b></p>
           }
           <div className="flex justify-between items-center px-2 mx-2">
             <span className={typeClass}>{type}</span>
@@ -89,9 +87,6 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
         <p className="flex justify-around items-center text-left h-[150px] overflow-auto pt-2.5 px-1.5 py-0 bg-[white]">{text}</p>
 
         <footer className="bg-[#bccde2] flex justify-center items-center flex-col">
-          <div>
-            <Checkbox action={changeFullStateHandler} />
-          </div>
           <div className="flex justify-center items-center py-2">
             <Button
               type="button"
@@ -117,6 +112,9 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
               link="/post/posts"
               isButton={true}
             />
+          </div>
+          <div>
+            <Checkbox action={changeFullStateHandler}/>
           </div>
         </footer>
       </div>

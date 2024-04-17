@@ -8,6 +8,7 @@ import {editPost, queryClient, sendPost} from "@/utils/http";
 import Loader from "@/components/Loader";
 import Error from "@/components/Error";
 import {editPostProps, SendPostProps} from "@/utils/models";
+import { Transition } from '@headlessui/react';
 
 type CreatePostProps = {
   id?: string;
@@ -105,53 +106,65 @@ const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typ
   if (isEditEror) return <Error reset={() => {}} error={editEror}/>
 
   return (
-    <form className="w-full" onSubmit={buttonText === "Edit" ? editPostHandler : createPostHandler}>
-      <h2 className="text-center text-3xl font-[500] leading-[1.2] mb-2">{headingText}</h2>
+    <Transition
+        appear={true}
+        show={true}
+        enter="ease-linear duration-700"
+        enterFrom="opacity-0 scale-80"
+        enterTo="opacity-100 scale-100"
+        leave="ease-linear duration-700"
+        leaveFrom="opacity-100 scale-100"
+        leaveTo="opacity-0 scale-80"
+        className="w-full"
+    >
+      <form className="w-full" onSubmit={buttonText === "Edit" ? editPostHandler : createPostHandler}>
+        <h2 className="text-center text-3xl font-[500] leading-[1.2] mb-2">{headingText}</h2>
 
-      <div className="my-2 flex flex-col">
-        <label htmlFor="summary" className="mb-2">Summary *</label>
-        <input
-          id="summary"
-          type="text"
-          ref={summaryRef}
-          onBlur={summaryBlurHandler}
-          className={summaryStyles}
-          placeholder="Enter your summary"
+        <div className="my-2 flex flex-col">
+          <label htmlFor="summary" className="mb-2">Summary *</label>
+          <input
+            id="summary"
+            type="text"
+            ref={summaryRef}
+            onBlur={summaryBlurHandler}
+            className={summaryStyles}
+            placeholder="Enter your summary"
+          />
+          {summaryError && <p className="text-[red]">The Summary field should have at least 3 characters</p>}
+        </div>
+        <div className="mb-2 flex flex-col">
+          <label htmlFor="text" className="mb-2">Text *</label>
+          <textarea
+            id="text"
+            ref={textRef}
+            onBlur={textBlurHandler}
+            className={textStyles}
+            placeholder="Enter your article text"
+          />
+          {textError && <p className="text-[red]">The Text field should have at least 5 characters</p>}
+        </div>
+
+        <div className="w-full my-2 flex flex-row rounded-md border-2 border-solid border-[#99aec3]">
+          <select
+            name="type"
+            ref={typeRef}
+            className="w-full px-3 py-1.5"
+          >
+            <option value="Note">Note</option>
+            <option value="News">News</option>
+          </select>
+          <label className="w-[100px] px-3 py-1.5 border-l-2 border-solid border-[#99aec3]">Options</label>
+        </div>
+
+        <Button
+          text={buttonText}
+          style="btn-primary mt-5 bg-[#88bddd] m-auto"
+          link="/post/posts"
+          type="submit"
+          isButton={true}
         />
-        {summaryError && <p className="text-[red]">The Summary field should have at least 3 characters</p>}
-      </div>
-      <div className="mb-2 flex flex-col">
-        <label htmlFor="text" className="mb-2">Text *</label>
-        <textarea
-          id="text"
-          ref={textRef}
-          onBlur={textBlurHandler}
-          className={textStyles}
-          placeholder="Enter your article text"
-        />
-        {textError && <p className="text-[red]">The Text field should have at least 5 characters</p>}
-      </div>
-
-      <div className="w-full my-2 flex flex-row rounded-md border-2 border-solid border-[#99aec3]">
-        <select
-          name="type"
-          ref={typeRef}
-          className="w-full px-3 py-1.5"
-        >
-          <option value="Note">Note</option>
-          <option value="News">News</option>
-        </select>
-        <label className="w-[100px] px-3 py-1.5 border-l-2 border-solid border-[#99aec3]">Options</label>
-      </div>
-
-      <Button
-        text={buttonText}
-        style="btn-primary mt-5 bg-[#88bddd] m-auto"
-        link="/post/posts"
-        type="submit"
-        isButton={true}
-      />
-    </form>
+      </form>
+    </Transition>
   );
 };
 
