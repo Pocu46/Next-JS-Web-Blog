@@ -92,7 +92,7 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
               type="button"
               action={editOpen}
               text="Edit"
-              style="btn-primary bg-[#528fd9]"
+              style="btn-primary bg-[#528fd9] transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300"
               link="/post/posts"
               isButton={true}
             />
@@ -100,7 +100,7 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
               type="button"
               action={deletePostHandler}
               text="Delete"
-              style="btn-primary bg-[#de5050] mx-3"
+              style="btn-primary bg-[#de5050] mx-3 transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300"
               link="/post/posts"
               isButton={true}
             />
@@ -108,7 +108,7 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
               type="button"
               action={favoriteStatusChangeHandler}
               text={!isFavorite ? 'Favorite' : 'Unfavourite'}
-              style={!isFavorite ? "btn-primary bg-[#dede01]" : "btn-primary bg-[gold]"}
+              style={!isFavorite ? "btn-primary bg-[#dede01] transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300" : "btn-primary bg-[gold] transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300"}
               link="/post/posts"
               isButton={true}
             />

@@ -158,7 +158,7 @@ const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typ
 
         <Button
           text={buttonText}
-          style="btn-primary mt-5 bg-[#88bddd] m-auto"
+          style="btn-primary mt-5 bg-[#88bddd] m-auto transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300"
           link="/post/posts"
           type="submit"
           isButton={true}
