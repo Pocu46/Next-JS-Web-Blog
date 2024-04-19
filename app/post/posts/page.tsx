@@ -8,7 +8,7 @@ import Loader from "@/components/Loader";
 import Error from "@/components/Error";
 import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
-
+import { Transition } from '@headlessui/react';
 
 const Posts = () => {
   const [filter, setFilter] = useState<string>('All')
@@ -86,12 +86,52 @@ const Posts = () => {
     setFilteredArray(temporaryFilteredArray)
   }, [filter, data, search])
 
-  if (data && postsReverse.length === 0 && !error) return <p className="text-center text-4xl text-[#14077c] w-full">No
-    data is added to Posts!</p>
-  if (isPending) return <Loader/>
-  if (isError) return <Error reset={getPostsUI} error={error}/>
+  if (data && postsReverse.length === 0 && !error) return (
+    <Transition
+      appear={true}
+      show={true}
+      enter="ease-linear duration-700"
+      enterFrom="opacity-0 scale-80"
+      enterTo="opacity-100 scale-100"
+      className="w-full"
+    >
+      <p className="text-center text-4xl text-[#14077c] w-full">No data is added to Posts!</p>
+    </Transition>
+  )
+  if (isPending) return (
+    <Transition
+      appear={true}
+      show={true}
+      enter="ease-linear duration-700"
+      enterFrom="opacity-0 scale-80"
+      enterTo="opacity-100 scale-100"
+      className="w-full"
+    >
+      <Loader/>
+    </Transition>
+  )
+  if (isError) return (
+      <Transition
+        appear={true}
+        show={true}
+        enter="ease-linear duration-700"
+        enterFrom="opacity-0 scale-80"
+        enterTo="opacity-100 scale-100"
+        className="w-full"
+      >
+        <Error reset={getPostsUI} error={error}/>
+      </Transition>
+    )
 
   return (
+    <Transition
+      appear={true}
+      show={true}
+      enter="ease-linear duration-700"
+      enterFrom="opacity-0 scale-80"
+      enterTo="opacity-100 scale-100"
+      className="w-full"
+    >
     <ul className="h-[calc(100vh_-_64px_-_64px)] w-full overflow-y-scroll">
       <div className="w-full flex justify-between gap-[15px]">
         <select onClick={filterHandler}
@@ -131,18 +171,26 @@ const Posts = () => {
       {filteredArray.map(post => {
         return (
           <li key={post.id}>
-            <Post
-              id={post.id}
-              time={post.time}
-              summary={post.summary}
-              text={post.text}
-              type={post.type}
-              isFavorite={post.isFavorite}
-            />
+            <Transition.Child
+              enter="ease-linear duration-700 delay-300"
+              enterFrom="opacity-0 scale-80"
+              enterTo="opacity-100 scale-100"
+              className="w-full"
+            >
+              <Post
+                id={post.id}
+                time={post.time}
+                summary={post.summary}
+                text={post.text}
+                type={post.type}
+                isFavorite={post.isFavorite}
+              />
+            </Transition.Child>
           </li>
         )
       })}
     </ul>
+    </Transition>
   )
 }
 
