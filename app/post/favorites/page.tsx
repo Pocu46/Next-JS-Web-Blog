@@ -33,7 +33,7 @@ const Favorites = () => {
 
   if (posts.length === 0) return <p className="text-center text-4xl text-[#14077c]">No data is added to Favorites!</p>
   if (isPending) return <Loader/>
-  if (isError) return <Error reset={() => {}} error={error}/>
+  if (isError) return <Error reset={getPostsUI} error={error}/>
 
   return (
     <ul className="post-lists__container h-[calc(100vh_-_64px_-_64px)] overflow-y-scroll">

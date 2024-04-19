@@ -20,7 +20,7 @@ const Error: React.FC<ErrorProps> = ({error,reset}) => {
       <div className="my-4 flex justify-between flex-row">
         <Button
           text="Reset"
-          style="btn-primary mt-5 bg-[#88bddd] m-auto"
+          style="btn-primary mt-5 bg-[#88bddd] m-auto transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300"
           link="/post/posts"
           type="button"
           isButton={true}
@@ -28,7 +28,7 @@ const Error: React.FC<ErrorProps> = ({error,reset}) => {
         />
         <Button
           text="Home"
-          style="btn-primary mt-5 bg-[#88bddd] m-auto"
+          style="btn-primary mt-5 bg-[#88bddd] m-auto transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300"
           link="/"
         />
       </div>

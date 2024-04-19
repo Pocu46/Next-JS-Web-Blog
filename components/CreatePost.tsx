@@ -102,8 +102,8 @@ const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typ
   }
 
   if (isPending) return <Loader/>
-  if (isError) return <Error reset={() => {}} error={error}/>
-  if (isEditEror) return <Error reset={() => {}} error={editEror}/>
+  if (isError) return <Error reset={createPostHandler} error={error}/>
+  if (isEditEror) return <Error reset={editPostHandler} error={editEror}/>
 
   return (
     <Transition
@@ -112,9 +112,6 @@ const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typ
         enter="ease-linear duration-700"
         enterFrom="opacity-0 scale-80"
         enterTo="opacity-100 scale-100"
-        leave="ease-linear duration-700"
-        leaveFrom="opacity-100 scale-100"
-        leaveTo="opacity-0 scale-80"
         className="w-full"
     >
       <form className="w-full" onSubmit={buttonText === "Edit" ? editPostHandler : createPostHandler}>
