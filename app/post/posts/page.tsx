@@ -8,7 +8,7 @@ import Loader from "@/components/Loader";
 import Error from "@/components/Error";
 import {useEffect, useRef, useState} from "react";
 import Image from "next/image";
-import { Transition } from '@headlessui/react';
+import {Transition} from '@headlessui/react';
 
 const Posts = () => {
   const [filter, setFilter] = useState<string>('All')
@@ -111,17 +111,17 @@ const Posts = () => {
     </Transition>
   )
   if (isError) return (
-      <Transition
-        appear={true}
-        show={true}
-        enter="ease-linear duration-700"
-        enterFrom="opacity-0 scale-80"
-        enterTo="opacity-100 scale-100"
-        className="w-full"
-      >
-        <Error reset={getPostsUI} error={error}/>
-      </Transition>
-    )
+    <Transition
+      appear={true}
+      show={true}
+      enter="ease-linear duration-700"
+      enterFrom="opacity-0 scale-80"
+      enterTo="opacity-100 scale-100"
+      className="w-full"
+    >
+      <Error reset={getPostsUI} error={error}/>
+    </Transition>
+  )
 
   return (
     <Transition
@@ -132,64 +132,64 @@ const Posts = () => {
       enterTo="opacity-100 scale-100"
       className="w-full"
     >
-    <ul className="h-[calc(100vh_-_64px_-_64px)] w-full overflow-y-scroll">
-      <div className="w-full flex justify-between gap-[15px]">
-        <select onClick={filterHandler}
-                className="w-[120px] my-2 cursor-default rounded-lg bg-white py-1 pl-1 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm"
-        >
-          <option>All</option>
-          <option>Notes</option>
-          <option>News</option>
-        </select>
+      <ul className="h-[calc(100vh_-_64px_-_64px)] w-full overflow-y-scroll">
+        <div className="w-full flex justify-between gap-[15px]">
+          <select onClick={filterHandler}
+                  className="w-[120px] my-2 cursor-default rounded-lg bg-white py-1 pl-1 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm"
+          >
+            <option>All</option>
+            <option>Notes</option>
+            <option>News</option>
+          </select>
 
-        <div
-          className="bg-[#1e3a8a33] w-full flex justify-around items-center my-2 cursor-default rounded-lg py-1 pl-1 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm"
-        >
-          <input
-            className="w-full h-[36px] px-1 rounded-lg"
-            type="text"
-            placeholder="Search Post"
-            defaultValue={search}
-            ref={searchRef}
-            onKeyDown={searchTextChangeHandlerKeyboard}
-          />
-
-          <div className="w-[46px] flex justify-center">
-            <Image
-              src={isSearchButtonText ? "/closeButton.svg" : "/searchIcon.svg"}
-              alt="close button"
-              className="w-[25px] h-[25px]"
-              onClick={isSearchButtonText ? searchTextDeleteHandler : searchTextChangeHandler}
-              width={25}
-              height={25}
+          <div
+            className="bg-[#1e3a8a33] w-full flex justify-around items-center my-2 cursor-default rounded-lg py-1 pl-1 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm"
+          >
+            <input
+              className="w-full h-[36px] px-1 rounded-lg"
+              type="text"
+              placeholder="Search Post"
+              defaultValue={search}
+              ref={searchRef}
+              onKeyDown={searchTextChangeHandlerKeyboard}
             />
+
+            <div className="w-[46px] flex justify-center">
+              <Image
+                src={isSearchButtonText ? "/closeButton.svg" : "/searchIcon.svg"}
+                alt="close button"
+                className="w-[25px] h-[25px]"
+                onClick={isSearchButtonText ? searchTextDeleteHandler : searchTextChangeHandler}
+                width={25}
+                height={25}
+              />
+            </div>
           </div>
         </div>
-      </div>
 
 
-      {filteredArray.map(post => {
-        return (
-          <li key={post.id}>
-            <Transition.Child
-              enter="ease-linear duration-700 delay-300"
-              enterFrom="opacity-0 scale-80"
-              enterTo="opacity-100 scale-100"
-              className="w-full"
-            >
-              <Post
-                id={post.id}
-                time={post.time}
-                summary={post.summary}
-                text={post.text}
-                type={post.type}
-                isFavorite={post.isFavorite}
-              />
-            </Transition.Child>
-          </li>
-        )
-      })}
-    </ul>
+        {filteredArray.map(post => {
+          return (
+            <li key={post.id}>
+              <Transition.Child
+                enter="ease-linear duration-700 delay-300"
+                enterFrom="opacity-0 scale-80"
+                enterTo="opacity-100 scale-100"
+                className="w-full"
+              >
+                <Post
+                  id={post.id}
+                  time={post.time}
+                  summary={post.summary}
+                  text={post.text}
+                  type={post.type}
+                  isFavorite={post.isFavorite}
+                />
+              </Transition.Child>
+            </li>
+          )
+        })}
+      </ul>
     </Transition>
   )
 }
