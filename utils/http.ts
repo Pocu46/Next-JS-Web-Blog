@@ -4,25 +4,10 @@ import {QueryClient} from "@tanstack/react-query";
 
 export const queryClient:QueryClient = new QueryClient()
 
-// export const getPosts = async ():Promise<PostsData> => {
-//   const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
-//   // const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/'
-//
-//   const res = await fetch(url,{ cache: "no-store" })
-//   // const res = await fetch(process.env.DB_URL,{ cache: 'force-cache' })
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch data')
-//   }
-//   const data = await res.json()
-//
-//   return data
-// }
-
 export const getPostsUI = async ():Promise<PostsData> => {
   const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
 
   const res = await fetch(url)
-  // const res = await fetch(process.env.DB_URL)
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

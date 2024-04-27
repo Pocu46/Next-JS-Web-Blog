@@ -101,42 +101,9 @@ const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typ
     action()
   }
 
-  if (isPending) return (
-    <Transition
-      appear={true}
-      show={true}
-      enter="ease-linear duration-700"
-      enterFrom="opacity-0 scale-80"
-      enterTo="opacity-100 scale-100"
-      className="w-full"
-    >
-      <Loader/>
-    </Transition>
-  )
-  if (isError) return (
-    <Transition
-      appear={true}
-      show={true}
-      enter="ease-linear duration-700"
-      enterFrom="opacity-0 scale-80"
-      enterTo="opacity-100 scale-100"
-      className="w-full"
-    >
-      <Error reset={createPostHandler} error={error}/>
-    </Transition>
-)
-  if (isEditEror) return(
-      <Transition
-        appear={true}
-        show={true}
-        enter="ease-linear duration-700"
-        enterFrom="opacity-0 scale-80"
-        enterTo="opacity-100 scale-100"
-        className="w-full"
-      >
-        <Error reset={editPostHandler} error={editEror}/>
-      </Transition>
-    )
+  if (isPending) return <Loader/>
+  if (isError) return <Error reset={createPostHandler} error={error}/>
+  if (isEditEror) return <Error reset={editPostHandler} error={editEror}/>
 
   return (
     <Transition

@@ -59,8 +59,8 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
   }
 
   const typeClass: string = type === 'Note'
-    ? 'bg-[white] text-[green] w-[63px] h-9 text-center flex justify-center items-center text-[large] mx-[15px] my-0 rounded-[5px]'
-    : 'bg-[white] text-[#c6c601] w-[63px] h-9 text-center flex justify-center items-center text-[large] mx-[15px] my-0 rounded-[5px]'
+    ? 'bg-[white] text-[green] w-[63px] h-9 text-center flex justify-center items-center text-[large] mx-[15px] my-0 rounded-[5px] px-1'
+    : 'bg-[white] text-[#c6c601] w-[63px] h-9 text-center flex justify-center items-center text-[large] mx-[15px] my-0 rounded-[5px] px-1'
 
   return (
     <>

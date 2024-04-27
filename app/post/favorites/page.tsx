@@ -32,42 +32,20 @@ const Favorites = () => {
 
   const postsReverse: PostsType[] = posts.reverse()
 
-  if (posts.length === 0) return (
+  if (data && posts.length === 0 && !error) return (
     <Transition
       appear={true}
       show={true}
       enter="ease-linear duration-700"
       enterFrom="opacity-0 scale-80"
       enterTo="opacity-100 scale-100"
-      className="w-full"
+      className="w-full h-full flex justify-center items-center"
     >
       <p className="text-center text-4xl text-[#14077c]">No data is added to Favorites!</p>
     </Transition>
   )
-  if (isPending) return (
-      <Transition
-        appear={true}
-        show={true}
-        enter="ease-linear duration-700"
-        enterFrom="opacity-0 scale-80"
-        enterTo="opacity-100 scale-100"
-        className="w-full"
-      >
-        <Loader/>
-      </Transition>
-    )
-  if (isError) return (
-      <Transition
-        appear={true}
-        show={true}
-        enter="ease-linear duration-700"
-        enterFrom="opacity-0 scale-80"
-        enterTo="opacity-100 scale-100"
-        className="w-full"
-      >
-        <Error reset={getPostsUI} error={error}/>
-      </Transition>
-    )
+  if (isPending) return <Loader/>
+  if (isError) return <Error reset={getPostsUI} error={error}/>
 
   return (
     <Transition
