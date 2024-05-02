@@ -8,7 +8,7 @@ import {editPost, queryClient, sendPost} from "@/utils/http";
 import Loader from "@/components/Loader";
 import Error from "@/components/Error";
 import {editPostProps, SendPostProps} from "@/utils/models";
-import { Transition } from '@headlessui/react';
+import {Transition} from '@headlessui/react';
 
 type CreatePostProps = {
   id?: string;
@@ -20,7 +20,16 @@ type CreatePostProps = {
   headingText: string;
   buttonText: string;
 }
-const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typeValue, isFavorite, action,  headingText, buttonText}) => {
+const CreatePost: React.FC<CreatePostProps> = ({
+                                                 id,
+                                                 summaryValue,
+                                                 textValue,
+                                                 typeValue,
+                                                 isFavorite,
+                                                 action,
+                                                 headingText,
+                                                 buttonText
+                                               }) => {
   const [summaryError, setSummaryError] = useState<boolean>(false);
   const [textError, setTextError] = useState<boolean>(false);
   const summaryRef = useRef<HTMLInputElement>(null);
@@ -29,7 +38,7 @@ const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typ
   const router = useRouter()
 
   useEffect(() => {
-    if(summaryValue && textValue && typeValue) {
+    if (summaryValue && textValue && typeValue && summaryRef.current !== null && textRef.current !== null && typeRef.current !== null) {
       summaryRef.current.value = summaryValue
       textRef.current.value = textValue
       typeRef.current.value = typeValue
@@ -47,7 +56,11 @@ const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typ
       router.replace('/post/posts')
     }
   })
-  const {mutate: editPostMethod, isError: isEditEror, error: editEror} = useMutation<void, Error, editPostProps, unknown>({
+  const {
+    mutate: editPostMethod,
+    isError: isEditEror,
+    error: editEror
+  } = useMutation<void, Error, editPostProps, unknown>({
     mutationKey: ['editPost'],
     mutationFn: editPost,
     onSuccess: () => {
@@ -98,21 +111,31 @@ const CreatePost: React.FC<CreatePostProps> = ({id, summaryValue, textValue, typ
       isFavorite
     })
 
-    action()
+    action && action()
   }
 
   if (isPending) return <Loader/>
-  if (isError) return <Error reset={createPostHandler} error={error}/>
+  if (isError) {
+    return (
+      <Error reset={() => mutate({
+        summary: summaryRef.current?.value,
+        text: textRef.current?.value,
+        type: typeRef.current?.value
+      })}
+             error={error}
+      />
+    )
+  }
   if (isEditEror) return <Error reset={editPostHandler} error={editEror}/>
 
   return (
     <Transition
-        appear={true}
-        show={true}
-        enter="ease-linear duration-700"
-        enterFrom="opacity-0 scale-80"
-        enterTo="opacity-100 scale-100"
-        className="w-full"
+      appear={true}
+      show={true}
+      enter="ease-linear duration-700"
+      enterFrom="opacity-0 scale-80"
+      enterTo="opacity-100 scale-100"
+      className="w-full"
     >
       <form className="w-full" onSubmit={buttonText === "Edit" ? editPostHandler : createPostHandler}>
         <h2 className="text-center text-3xl font-[500] leading-[1.2] mb-2">{headingText}</h2>

@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
-type ButtonProps = {
+export type ButtonProps = {
   text: string;
   style: string;
-  action?: () => void;
+  action?:  React.MouseEventHandler<HTMLButtonElement>;
   link: string;
   isButton?: boolean;
   type?: "submit" | "reset" | "button"

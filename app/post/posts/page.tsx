@@ -15,7 +15,7 @@ const Posts = () => {
   const [filteredArray, setFilteredArray] = useState<PostsType[]>([])
   const [search, setSearch] = useState<string>('')
   const searchRef = useRef<HTMLInputElement>()
-  const {data, error, isError, isPending} = useQuery({
+  const {data, error, isError, isPending, refetch} = useQuery({
     queryKey: ['posts'],
     queryFn: getPostsUI,
     refetchOnWindowFocus: false,
@@ -36,33 +36,28 @@ const Posts = () => {
 
   const postsReverse: PostsType[] = posts.reverse()
 
-  let isSearchButtonText: boolean = false
-
-  if (search.length) {
-    isSearchButtonText = true
-  }
-
   const filterHandler: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
     setFilter(event.target.value)
   }
 
-  const searchTextChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setSearch((searchRef.current.value).trim())
+  const searchTextChangeHandler = () => {
+    if (searchRef.current) setSearch((searchRef.current.value).trim())
   }
 
   const searchTextChangeHandlerKeyboard: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === 'Enter') {
-      setSearch((searchRef.current.value).trim())
+      if (searchRef.current) setSearch((searchRef.current.value).trim())
     }
   }
 
   const searchTextDeleteHandler = (): void => {
     setSearch('')
-    searchRef.current.value = ''
+    if (searchRef.current) searchRef.current.value = ''
   }
 
   useEffect(() => {
     let temporaryFilteredArray: PostsType[] = []
+
     if (filter === 'All') {
       temporaryFilteredArray = [...postsReverse]
     }
@@ -81,7 +76,7 @@ const Posts = () => {
       }))
     }
     if (search.length) {
-      temporaryFilteredArray = temporaryFilteredArray.filter(post => (post.summary).toLocaleLowerCase().includes(search))
+      temporaryFilteredArray = temporaryFilteredArray.filter(post => (post.summary)?.toLowerCase().includes(search.toLowerCase()))
     }
     setFilteredArray(temporaryFilteredArray)
   }, [filter, data, search])
@@ -99,7 +94,7 @@ const Posts = () => {
     </Transition>
   )
   if (isPending) return <Loader/>
-  if (isError) return <Error reset={getPostsUI} error={error}/>
+  if (!data && !posts.length && isError) return <Error reset={refetch} error={error} />
 
   return (
     <Transition
@@ -110,9 +105,9 @@ const Posts = () => {
       enterTo="opacity-100 scale-100"
       className="w-full"
     >
-      <ul className="h-[calc(100vh_-_64px_-_64px)] w-full overflow-y-scroll">
+      <ul className="h-[calc(100vh_-_64px_-_64px)] w-full overflow-y-auto">
         <div className="w-full flex justify-between gap-[15px]">
-          <select onClick={filterHandler}
+          <select onChange={filterHandler}
                   className="w-[120px] my-2 cursor-default rounded-lg bg-white py-1 pl-1 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm"
           >
             <option>All</option>
@@ -134,10 +129,10 @@ const Posts = () => {
 
             <div className="w-[46px] flex justify-center">
               <Image
-                src={isSearchButtonText ? "/closeButton.svg" : "/searchIcon.svg"}
+                src={search.length ? "/closeButton.svg" : "/searchIcon.svg"}
                 alt="close button"
                 className="w-[25px] h-[25px]"
-                onClick={isSearchButtonText ? searchTextDeleteHandler : searchTextChangeHandler}
+                onClick={search.length ? searchTextDeleteHandler : searchTextChangeHandler}
                 width={25}
                 height={25}
               />
@@ -145,28 +140,38 @@ const Posts = () => {
           </div>
         </div>
 
-
-        {filteredArray.map(post => {
-          return (
-            <li key={post.id}>
-              <Transition.Child
-                enter="ease-linear duration-700 delay-300"
-                enterFrom="opacity-0 scale-80"
-                enterTo="opacity-100 scale-100"
-                className="w-full"
-              >
-                <Post
-                  id={post.id}
-                  time={post.time}
-                  summary={post.summary}
-                  text={post.text}
-                  type={post.type}
-                  isFavorite={post.isFavorite}
-                />
-              </Transition.Child>
-            </li>
-          )
-        })}
+        {
+          (data && search && filteredArray.length === 0)
+            ? <Transition.Child
+              enter="ease-linear duration-700 delay-300"
+              enterFrom="opacity-0 scale-80"
+              enterTo="opacity-100 scale-100"
+              className="w-full"
+            >
+              <p className="text-center text-4xl text-[#14077c] w-full">No articles are found</p>
+            </Transition.Child>
+            : filteredArray.map(post => {
+              return (
+                <li key={post.id}>
+                  <Transition.Child
+                    enter="ease-linear duration-700 delay-300"
+                    enterFrom="opacity-0 scale-80"
+                    enterTo="opacity-100 scale-100"
+                    className="w-full"
+                  >
+                    <Post
+                      id={post.id}
+                      time={post.time}
+                      summary={post.summary}
+                      text={post.text}
+                      type={post.type}
+                      isFavorite={post.isFavorite}
+                    />
+                  </Transition.Child>
+                </li>
+              )
+            })
+        }
       </ul>
     </Transition>
   )

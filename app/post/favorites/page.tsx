@@ -9,7 +9,7 @@ import Error from "@/components/Error";
 import {Transition} from '@headlessui/react';
 
 const Favorites = () => {
-  const {data, error, isError, isPending} = useQuery({
+  const {data, error, isError, isPending, refetch} = useQuery({
     queryKey: ['posts'],
     queryFn: getPostsUI,
     refetchOnWindowFocus: false,
@@ -45,7 +45,7 @@ const Favorites = () => {
     </Transition>
   )
   if (isPending) return <Loader/>
-  if (isError) return <Error reset={getPostsUI} error={error}/>
+  if (!data && !posts.length && isError) return <Error reset={refetch} error={error}/>
 
   return (
     <Transition
@@ -56,7 +56,7 @@ const Favorites = () => {
       enterTo="opacity-100 scale-100"
       className="w-full"
     >
-      <ul className="post-lists__container h-[calc(100vh_-_64px_-_64px)] overflow-y-scroll">
+      <ul className="post-lists__container h-[calc(100vh_-_64px_-_64px)] overflow-y-auto">
         {postsReverse.map(post => {
           return (
             <li key={post.id} className="post-lists__item">

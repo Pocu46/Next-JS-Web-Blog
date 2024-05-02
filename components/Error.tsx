@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
-import Button from "@/UI/Button";
+import Button, {ButtonProps} from "@/UI/Button";
 
 type ErrorProps = {
   error: Error | { message: string };
-  reset: () => void;
+  reset: ButtonProps['action'];
 }
 
 const Error: React.FC<ErrorProps> = ({error,reset}) => {

@@ -1,7 +1,6 @@
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
 import Header from "@/components/Header";
-import WrapperComponent from "@/UI/WrapperComponent";
 import Provider from "@/components/Provider";
 import "./globals.css";
 
@@ -14,16 +13,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
   return (
-    <Provider>
-      <html lang="en">
-        <body className={inter.className}>
+    <html lang="en">
+      <body className={inter.className}>
+        <Provider>
           <Header/>
-          <div className="m-auto w-[960px] h-[calc(100vh_-_64px)] md:max-lg:w-[768px] sm:max-md:w-[600px] max-sm:w-[540px]">
-            {children}
-          </div>
+            <div className="m-auto w-[960px] h-[calc(100vh_-_64px)] md:max-lg:w-[768px] sm:max-md:w-[600px] max-sm:w-[540px]">
+              {children}
+            </div>
           <div id="modalId"/>
-        </body>
-      </html>
-    </Provider>
+        </Provider>
+      </body>
+    </html>
   );
 }
