@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning={true} >
         <Provider>
           <Header/>
             <div className="m-auto w-[960px] h-[calc(100vh_-_64px)] md:max-lg:w-[768px] sm:max-md:w-[600px] max-sm:w-[540px]">

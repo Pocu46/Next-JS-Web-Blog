@@ -94,7 +94,7 @@ const Posts = () => {
     </Transition>
   )
   if (isPending) return <Loader/>
-  if (!data && !posts.length && isError) return <Error reset={refetch} error={error} />
+  if (!data && !posts.length && isError) return <Error reset={refetch} error={error}/>
 
   return (
     <Transition
@@ -171,28 +171,6 @@ const Posts = () => {
                 </li>
               )
             })
-
-            // (data && filteredArray.length) && filteredArray.map(post => {
-            //     return (
-            //       <li key={post.id}>
-            //         <Transition.Child
-            //           enter="ease-linear duration-700 delay-300"
-            //           enterFrom="opacity-0 scale-80"
-            //           enterTo="opacity-100 scale-100"
-            //           className="w-full"
-            //         >
-            //           <Post
-            //             id={post.id}
-            //             time={post.time}
-            //             summary={post.summary}
-            //             text={post.text}
-            //             type={post.type}
-            //             isFavorite={post.isFavorite}
-            //           />
-            //         </Transition.Child>
-            //       </li>
-            //     )
-            //   })
         }
       </ul>
     </Transition>
