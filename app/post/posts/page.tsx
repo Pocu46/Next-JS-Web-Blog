@@ -141,7 +141,7 @@ const Posts = () => {
         </div>
 
         {
-          (data && search && filteredArray.length === 0)
+          ((data && search && filteredArray.length === 0) || (data && filteredArray.length === 0))
             ? <Transition.Child
               enter="ease-linear duration-700 delay-300"
               enterFrom="opacity-0 scale-80"
@@ -171,6 +171,28 @@ const Posts = () => {
                 </li>
               )
             })
+
+            // (data && filteredArray.length) && filteredArray.map(post => {
+            //     return (
+            //       <li key={post.id}>
+            //         <Transition.Child
+            //           enter="ease-linear duration-700 delay-300"
+            //           enterFrom="opacity-0 scale-80"
+            //           enterTo="opacity-100 scale-100"
+            //           className="w-full"
+            //         >
+            //           <Post
+            //             id={post.id}
+            //             time={post.time}
+            //             summary={post.summary}
+            //             text={post.text}
+            //             type={post.type}
+            //             isFavorite={post.isFavorite}
+            //           />
+            //         </Transition.Child>
+            //       </li>
+            //     )
+            //   })
         }
       </ul>
     </Transition>
