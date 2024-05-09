@@ -5,7 +5,7 @@ import {QueryClient} from "@tanstack/react-query";
 export const queryClient:QueryClient = new QueryClient()
 
 export const getPosts = async ():Promise<PostsData> => {
-  const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
+  const url: string = process.env.NEXT_PUBLIC_DB_URL
 
   const res = await fetch(url)
   if (!res.ok) {
@@ -17,7 +17,7 @@ export const getPosts = async ():Promise<PostsData> => {
 }
 
 export const sendPost = async ({summary, text, type}: SendPostProps) => {
-  const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
+  const url: string = process.env.NEXT_PUBLIC_DB_URL
   const payload = {
     method: 'POST',
     body: JSON.stringify({
@@ -41,7 +41,7 @@ export const sendPost = async ({summary, text, type}: SendPostProps) => {
 }
 
 export const postAction = async ({id, summary, text, type, time, isFavorite, method}: postActionProps) => {
-  const url: string = `https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts/${id}.json`
+  const url: string = `${process.env.NEXT_PUBLIC_DB_URL_POST_CHANGE}/posts/${id}.json`
   let isFavoriteValue: boolean
 
   if(isFavorite === false) {
@@ -89,7 +89,7 @@ export const postAction = async ({id, summary, text, type, time, isFavorite, met
 }
 
 export const editPost = async ({id, summary, text, type, isFavorite}: editPostProps) => {
-  const url: string = `https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts/${id}.json`
+  const url: string = `${process.env.NEXT_PUBLIC_DB_URL_POST_CHANGE}/posts/${id}.json`
 
   const payload = {
     method: 'PATCH',
