@@ -4,7 +4,7 @@ import {QueryClient} from "@tanstack/react-query";
 
 export const queryClient:QueryClient = new QueryClient()
 
-export const getPostsUI = async ():Promise<PostsData> => {
+export const getPosts = async ():Promise<PostsData> => {
   const url: string = 'https://wfm-js-blog-463dd-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
 
   const res = await fetch(url)

@@ -137,7 +137,7 @@ const CreatePost: React.FC<CreatePostProps> = ({
       enterTo="opacity-100 scale-100"
       className="w-full"
     >
-      <form className="w-full" onSubmit={buttonText === "Edit" ? editPostHandler : createPostHandler}>
+      <form className="w-full h-[calc(100vh_-_64px_-_64px)]" onSubmit={buttonText === "Edit" ? editPostHandler : createPostHandler}>
         <h2 className="text-center text-3xl font-[500] leading-[1.2] mb-2">{headingText}</h2>
 
         <div className="my-2 flex flex-col">

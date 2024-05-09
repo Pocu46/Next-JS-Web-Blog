@@ -1,7 +1,7 @@
 "use client"
 
 import Post from "@/components/Post";
-import {getPostsUI} from "@/utils/http";
+import {getPosts} from "@/utils/http";
 import {PostsType} from "@/utils/models";
 import {useQuery} from "@tanstack/react-query";
 import Loader from "@/components/Loader";
@@ -17,7 +17,7 @@ const Posts = () => {
   const searchRef = useRef<HTMLInputElement>()
   const {data, error, isError, isPending, refetch} = useQuery({
     queryKey: ['posts'],
-    queryFn: getPostsUI,
+    queryFn: getPosts,
     refetchOnWindowFocus: false,
   })
 
@@ -94,7 +94,7 @@ const Posts = () => {
     </Transition>
   )
   if (isPending) return <Loader/>
-  if (!data && !posts.length && isError) return <Error reset={refetch} error={error}/>
+  if (!data && !posts.length && isError) return <Error reset={() => refetch()} error={error}/>
 
   return (
     <Transition
@@ -105,7 +105,7 @@ const Posts = () => {
       enterTo="opacity-100 scale-100"
       className="w-full"
     >
-      <ul className="h-[calc(100vh_-_64px_-_64px)] w-full overflow-y-auto">
+      <ul>
         <div className="w-full flex justify-between gap-[15px]">
           <select onChange={filterHandler}
                   className="w-[120px] my-2 cursor-default rounded-lg bg-white py-1 pl-1 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm"

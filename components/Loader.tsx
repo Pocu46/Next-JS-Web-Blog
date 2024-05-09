@@ -2,7 +2,7 @@ import React from "react";
 
 const Loader = () => {
   return (
-    <div className="m-auto w-full flex justify-center items-center flex-col">
+    <div className="m-auto w-full h-[calc(100vh_-_64px_-_64px)] flex justify-center items-center flex-col">
       <h2 className="text-center my-3 text-4xl font-[300] leading-[1.2]">Loading...</h2>
 
       <div role="status">

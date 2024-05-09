@@ -1,7 +1,7 @@
 "use client"
 
 import {PostsType} from "@/utils/models";
-import {getPostsUI} from "@/utils/http";
+import {getPosts} from "@/utils/http";
 import Post from "@/components/Post";
 import {useQuery} from "@tanstack/react-query";
 import Loader from "@/components/Loader";
@@ -11,7 +11,7 @@ import {Transition} from '@headlessui/react';
 const Favorites = () => {
   const {data, error, isError, isPending, refetch} = useQuery({
     queryKey: ['posts'],
-    queryFn: getPostsUI,
+    queryFn: getPosts,
     refetchOnWindowFocus: false,
   })
 
@@ -45,7 +45,7 @@ const Favorites = () => {
     </Transition>
   )
   if (isPending) return <Loader/>
-  if (!data && !posts.length && isError) return <Error reset={refetch} error={error}/>
+  if (!data && !posts.length && isError) return <Error reset={() => refetch()} error={error}/>
 
   return (
     <Transition
@@ -56,10 +56,10 @@ const Favorites = () => {
       enterTo="opacity-100 scale-100"
       className="w-full"
     >
-      <ul className="post-lists__container h-[calc(100vh_-_64px_-_64px)] overflow-y-auto">
+      <ul className="h-auto">
         {postsReverse.map(post => {
           return (
-            <li key={post.id} className="post-lists__item">
+            <li key={post.id}>
               <Transition.Child
                 enter="ease-linear duration-700 delay-300"
                 enterFrom="opacity-0 scale-80"
