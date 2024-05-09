@@ -39,7 +39,7 @@ const Favorites = () => {
       enter="ease-linear duration-700"
       enterFrom="opacity-0 scale-80"
       enterTo="opacity-100 scale-100"
-      className="w-full h-full flex justify-center items-center"
+      className="w-full h-[calc(100vh_-_64px_-_64px)] flex justify-center items-center"
     >
       <p className="text-center text-4xl text-[#14077c]">No data is added to Favorites!</p>
     </Transition>
@@ -54,7 +54,7 @@ const Favorites = () => {
       enter="ease-linear duration-700"
       enterFrom="opacity-0 scale-80"
       enterTo="opacity-100 scale-100"
-      className="w-full"
+      className="w-full h-[calc(100vh_-_64px_-_64px)]"
     >
       <ul className="h-auto">
         {postsReverse.map(post => {
@@ -64,7 +64,7 @@ const Favorites = () => {
                 enter="ease-linear duration-700 delay-300"
                 enterFrom="opacity-0 scale-80"
                 enterTo="opacity-100 scale-100"
-                className="w-full"
+                className="w-full h-[calc(100vh_-_64px_-_64px)]"
               >
                 <Post
                   id={post.id}

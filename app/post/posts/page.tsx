@@ -88,7 +88,7 @@ const Posts = () => {
       enter="ease-linear duration-700"
       enterFrom="opacity-0 scale-80"
       enterTo="opacity-100 scale-100"
-      className="w-full h-full flex justify-center items-center"
+      className="w-full h-[calc(100vh_-_64px_-_64px)] flex justify-center items-center"
     >
       <p className="text-center text-4xl text-[#14077c] w-full">No data is added to Posts!</p>
     </Transition>
@@ -103,7 +103,7 @@ const Posts = () => {
       enter="ease-linear duration-700"
       enterFrom="opacity-0 scale-80"
       enterTo="opacity-100 scale-100"
-      className="w-full"
+      className="w-full h-[calc(100vh_-_64px_-_64px)]"
     >
       <ul>
         <div className="w-full flex justify-between gap-[15px]">
@@ -146,9 +146,9 @@ const Posts = () => {
               enter="ease-linear duration-700 delay-300"
               enterFrom="opacity-0 scale-80"
               enterTo="opacity-100 scale-100"
-              className="w-full"
+              className="w-full h-[calc(100vh_-_64px_-_64px)]"
             >
-              <p className="text-center text-4xl text-[#14077c] w-full">No articles are found</p>
+              <p className="text-center text-4xl text-[#14077c] w-full h-full">No articles are found</p>
             </Transition.Child>
             : filteredArray.map(post => {
               return (
