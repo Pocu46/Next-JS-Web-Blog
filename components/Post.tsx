@@ -9,6 +9,7 @@ import {postAction, queryClient} from "@/utils/http";
 import Modal from "@/components/Modal";
 import CreatePost from "@/components/CreatePost";
 import Checkbox from "@/UI/Checkbox";
+import Marquee from "react-fast-marquee";
 
 type PostProps = {
   id: string,
@@ -69,7 +70,7 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
           <p className="max-w-[150px] px-2">{time}</p>
           {
             isFull
-              ? <marquee className="w-full h-[25px] text-center"><b>{summary}</b></marquee>
+              ? <Marquee className="w-full h-[25px] text-center"><b>{summary}</b></Marquee>
               : <p className="w-full h-[25px] overflow-y-hidden text-center"><b>{summary}</b></p>
           }
           <div className="flex justify-between items-center px-2 mx-2">
