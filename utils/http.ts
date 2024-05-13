@@ -5,7 +5,7 @@ import {QueryClient} from "@tanstack/react-query";
 export const queryClient:QueryClient = new QueryClient()
 
 export const getPosts = async ():Promise<PostsData> => {
-  const url: string = process.env.NEXT_PUBLIC_DB_URL
+  const url: string = `${process.env.NEXT_PUBLIC_DB_URL}`
 
   const res = await fetch(url)
   if (!res.ok) {
@@ -17,7 +17,7 @@ export const getPosts = async ():Promise<PostsData> => {
 }
 
 export const sendPost = async ({summary, text, type}: SendPostProps) => {
-  const url: string = process.env.NEXT_PUBLIC_DB_URL
+  const url: string = `${process.env.NEXT_PUBLIC_DB_URL}`
   const payload = {
     method: 'POST',
     body: JSON.stringify({

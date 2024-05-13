@@ -14,7 +14,7 @@ const Posts = () => {
   const [filter, setFilter] = useState<string>('All')
   const [filteredArray, setFilteredArray] = useState<PostsType[]>([])
   const [search, setSearch] = useState<string>('')
-  const searchRef = useRef<HTMLInputElement>()
+  const searchRef = useRef<HTMLInputElement>(null)
   const {data, error, isError, isPending, refetch} = useQuery({
     queryKey: ['posts'],
     queryFn: getPosts,
@@ -41,18 +41,18 @@ const Posts = () => {
   }
 
   const searchTextChangeHandler = () => {
-    if (searchRef.current) setSearch((searchRef.current.value).trim())
+    setSearch((searchRef.current!.value).trim())
   }
 
   const searchTextChangeHandlerKeyboard: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === 'Enter') {
-      if (searchRef.current) setSearch((searchRef.current.value).trim())
+      setSearch((searchRef.current!.value).trim())
     }
   }
 
   const searchTextDeleteHandler = (): void => {
     setSearch('')
-    if (searchRef.current) searchRef.current.value = ''
+    searchRef.current!.value = ''
   }
 
   useEffect(() => {
@@ -103,7 +103,7 @@ const Posts = () => {
       enter="ease-linear duration-700"
       enterFrom="opacity-0 scale-80"
       enterTo="opacity-100 scale-100"
-      className="w-full h-[calc(100vh_-_64px_-_64px)]"
+      className="w-full min-h-[calc(100vh_-_64px_-_64px)]"
     >
       <ul>
         <div className="w-full flex justify-between gap-[15px]">

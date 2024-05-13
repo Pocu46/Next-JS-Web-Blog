@@ -20,6 +20,9 @@ type CreatePostProps = {
   headingText: string;
   buttonText: string;
 }
+
+let componentFirstMount: boolean = true
+
 const CreatePost: React.FC<CreatePostProps> = ({
                                                  id,
                                                  summaryValue,
@@ -30,6 +33,8 @@ const CreatePost: React.FC<CreatePostProps> = ({
                                                  headingText,
                                                  buttonText
                                                }) => {
+  const [summaryVal, setSummaryVal] = useState<string | undefined>('')
+  const [textVal, setTextVal] = useState<string | undefined>('')
   const [summaryError, setSummaryError] = useState<boolean>(false);
   const [textError, setTextError] = useState<boolean>(false);
   const summaryRef = useRef<HTMLInputElement>(null);
@@ -39,11 +44,30 @@ const CreatePost: React.FC<CreatePostProps> = ({
 
   useEffect(() => {
     if (summaryValue && textValue && typeValue && summaryRef.current !== null && textRef.current !== null && typeRef.current !== null) {
-      summaryRef.current.value = summaryValue
-      textRef.current.value = textValue
+      // summaryRef.current.value = summaryValue
+      // textRef.current.value = textValue
+      setSummaryVal(summaryValue)
+      setTextVal(textValue)
       typeRef.current.value = typeValue
+
+      componentFirstMount = false
     }
   }, [])
+
+  // useEffect(() => {
+  //   if (summaryVal!.trim().length > 1 && summaryVal!.trim().length < 3 && !componentFirstMount) {
+  //     setSummaryError(true);
+  //   }
+  //   if (summaryVal!.trim().length >= 3 && !componentFirstMount) {
+  //     setSummaryError(false);
+  //   }
+  //   if (textVal!.trim().length > 1  && textVal!.trim().length < 5 && !componentFirstMount) {
+  //     setTextError(true);
+  //   }
+  //   if (textVal!.trim().length >= 5 && !componentFirstMount) {
+  //     setTextError(false);
+  //   }
+  // }, [summaryVal, textVal])
 
   const {mutate, isPending, isError, error} = useMutation<void, Error, SendPostProps, unknown>({
     mutationKey: ['createPost'],
@@ -74,9 +98,26 @@ const CreatePost: React.FC<CreatePostProps> = ({
   const createPostHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (summaryVal!.trim().length < 3 && !componentFirstMount) {
+      setSummaryError(true);
+      return
+    }
+    if (summaryVal!.trim().length >= 3 && !componentFirstMount) {
+      setSummaryError(false);
+    }
+    if (textVal!.trim().length < 5 && !componentFirstMount) {
+      setTextError(true);
+      return
+    }
+    if (textVal!.trim().length >= 5 && !componentFirstMount) {
+      setTextError(false);
+    }
+
     mutate({
-      summary: summaryRef.current?.value,
-      text: textRef.current?.value,
+      // summary: summaryRef.current?.value,
+      summary: summaryVal,
+      // text: textRef.current?.value,
+      text: textVal,
       type: typeRef.current?.value
     });
   };
@@ -84,22 +125,34 @@ const CreatePost: React.FC<CreatePostProps> = ({
   const summaryStyles: string = summaryError ? "w-full px-3 py-1.5 bg-[#e5b6c0] rounded-md border-2 border-solid border-[red]" : "w-full px-3 py-1.5 rounded-md border-2 border-solid border-[#99aec3]"
   const textStyles: string = textError ? "w-full px-3 py-1.5 bg-[#e5b6c0] rounded-md border-2 border-solid border-[red]" : "w-full px-3 py-1.5 rounded-md border-2 border-solid border-[#99aec3]"
 
-  const summaryBlurHandler = () => {
-    if (summaryRef.current?.value && summaryRef.current.value.trim().length < 3) {
-      setSummaryError(true);
-    }
-    if (summaryError && summaryRef.current?.value && summaryRef.current.value.trim().length >= 3) {
-      setSummaryError(false);
-    }
+  // const summaryBlurHandler = () => {
+  //   if (summaryRef.current?.value && summaryRef.current.value.trim().length < 3) {
+  //     setSummaryError(true);
+  //   }
+  //   if (summaryError && summaryRef.current?.value && summaryRef.current.value.trim().length >= 3) {
+  //     setSummaryError(false);
+  //   }
+  // }
+  //
+  // const textBlurHandler = () => {
+  //   if (textRef.current?.value && textRef.current.value.trim().length < 5) {
+  //     setTextError(true);
+  //   }
+  //   if (textError && textRef.current?.value && textRef.current.value.trim().length >= 5) {
+  //     setTextError(false);
+  //   }
+  // }
+
+  const summaryChangeHandler = () => {
+    setSummaryVal(summaryRef.current?.value)
+
+    componentFirstMount = false
   }
 
-  const textBlurHandler = () => {
-    if (textRef.current?.value && textRef.current.value.trim().length < 5) {
-      setTextError(true);
-    }
-    if (textError && textRef.current?.value && textRef.current.value.trim().length >= 5) {
-      setTextError(false);
-    }
+  const textChangeHandler = () => {
+    setTextVal(textRef.current?.value)
+
+    componentFirstMount = false
   }
 
   const editPostHandler = () => {
@@ -137,7 +190,8 @@ const CreatePost: React.FC<CreatePostProps> = ({
       enterTo="opacity-100 scale-100"
       className="w-full"
     >
-      <form className="w-full h-[calc(100vh_-_64px_-_64px)]" onSubmit={buttonText === "Edit" ? editPostHandler : createPostHandler}>
+      <form className="w-full h-[calc(100vh_-_64px_-_64px)]"
+            onSubmit={buttonText === "Edit" ? editPostHandler : createPostHandler}>
         <h2 className="text-center text-3xl font-[500] leading-[1.2] mb-2">{headingText}</h2>
 
         <div className="my-2 flex flex-col">
@@ -146,7 +200,9 @@ const CreatePost: React.FC<CreatePostProps> = ({
             id="summary"
             type="text"
             ref={summaryRef}
-            onBlur={summaryBlurHandler}
+            // onBlur={summaryBlurHandler}
+            value={summaryVal}
+            onChange={summaryChangeHandler}
             className={summaryStyles}
             placeholder="Enter your summary"
           />
@@ -157,7 +213,9 @@ const CreatePost: React.FC<CreatePostProps> = ({
           <textarea
             id="text"
             ref={textRef}
-            onBlur={textBlurHandler}
+            // onBlur={textBlurHandler}
+            value={textVal}
+            onChange={textChangeHandler}
             className={textStyles}
             placeholder="Enter your article text"
           />
