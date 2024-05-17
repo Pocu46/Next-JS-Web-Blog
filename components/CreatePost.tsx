@@ -58,7 +58,7 @@ const CreatePost: React.FC<CreatePostProps> = ({
     }
   }, [summaryVal, textVal])
 
-  const {mutate, isPending, isSuccess, isError, error} = useMutation<void, Error, SendPostProps, unknown>({
+  const {mutate, isError, error} = useMutation<void, Error, SendPostProps, unknown>({
     mutationKey: ['createPost'],
     mutationFn: sendPost,
     onSuccess: () => {
@@ -132,7 +132,7 @@ const CreatePost: React.FC<CreatePostProps> = ({
     action && action()
   }
 
-  if (isPending || isSpinning) return <Loader/>
+  if (isSpinning && !isError) return <Loader/>
   if (isError) {
     return (
       <Error reset={() => mutate({
