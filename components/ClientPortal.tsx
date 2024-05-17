@@ -7,7 +7,15 @@ type ClientPortalType = {
   onClose?: () => void | null;
   root: string;
 };
-const ClientPortal: React.FC<ClientPortalType> = ({children, show, root}) => {
-  return show && createPortal(children, document.getElementById(root))
+
+const ClientPortal: React.FC<ClientPortalType> = ({ children, show, root }) => {
+  const rootElement = document.getElementById(root);
+
+  if (!rootElement) {
+    return null;
+  }
+
+  return show ? createPortal(children, rootElement) : null;
 };
+
 export default ClientPortal;
