@@ -1,5 +1,39 @@
+// import React from "react";
+// import {createPortal} from "react-dom";
+//
+// type ClientPortalType = {
+//   children: React.ReactNode;
+//   show?: boolean;
+//   onClose?: () => void | null;
+//   root: string;
+// };
+//
+// const ClientPortal: React.FC<ClientPortalType> = ({ children, show, root }) => {
+//   // const rootElement = document.getElementById(root);
+//
+// //   if (!rootElement) {
+// //     return null;
+// //   }
+// //
+// //   return show ? createPortal(children, rootElement) : null;
+// // };
+//   if(root) {
+//     const rootElement = document.getElementById(root);
+//
+//     if (rootElement) {
+//       return show && createPortal(children, rootElement)
+//     }
+//   }
+//
+//   // if (rootElement) {
+//   //   return show && createPortal(children, rootElement)
+//   // }
+// };
+//
+// export default ClientPortal;
+
 import React from "react";
-import {createPortal} from "react-dom";
+import { createPortal } from "react-dom";
 
 type ClientPortalType = {
   children: React.ReactNode;
@@ -9,25 +43,15 @@ type ClientPortalType = {
 };
 
 const ClientPortal: React.FC<ClientPortalType> = ({ children, show, root }) => {
-  // const rootElement = document.getElementById(root);
-
-//   if (!rootElement) {
-//     return null;
-//   }
-//
-//   return show ? createPortal(children, rootElement) : null;
-// };
-  if(root) {
+  if (typeof window !== "undefined") {
     const rootElement = document.getElementById(root);
 
-    if (rootElement) {
-      return show && createPortal(children, rootElement)
+    if (rootElement && show) {
+      return createPortal(children, rootElement);
     }
   }
 
-  // if (rootElement) {
-  //   return show && createPortal(children, rootElement)
-  // }
+  return null;
 };
 
 export default ClientPortal;
