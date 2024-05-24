@@ -9,7 +9,7 @@ type ClientPortalType = {
 };
 
 const ClientPortal: React.FC<ClientPortalType> = ({ children, show, root }) => {
-  const rootElement = document.getElementById(root);
+  // const rootElement = document.getElementById(root);
 
 //   if (!rootElement) {
 //     return null;
@@ -17,10 +17,17 @@ const ClientPortal: React.FC<ClientPortalType> = ({ children, show, root }) => {
 //
 //   return show ? createPortal(children, rootElement) : null;
 // };
+  if(root) {
+    const rootElement = document.getElementById(root);
 
-  if (rootElement) {
-    return show && createPortal(children, rootElement)
+    if (rootElement) {
+      return show && createPortal(children, rootElement)
+    }
   }
+
+  // if (rootElement) {
+  //   return show && createPortal(children, rootElement)
+  // }
 };
 
 export default ClientPortal;
