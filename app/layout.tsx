@@ -17,8 +17,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
       <body className={inter.className} suppressHydrationWarning={true} >
         <Provider>
           <Header/>
-            {/*<div className="m-auto w-[960px] lg:w-full">*/}
-            <div className="m-auto w-full">
+            <div className="m-auto w-full lg:w-[960px]">
               {children}
             </div>
           <div id="modalId"/>
