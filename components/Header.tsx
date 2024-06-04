@@ -59,7 +59,7 @@ const Header = () => {
       </div>
 
       <Modal
-        style="ml-0 mr-auto mt-16 mb-0 w-[400px] h-[calc(100vh_-_64px)] bg-[rgba(30,58,138,0.2)] relative left-0 bottom-0 modal backdrop:bg-[rgba(0,0,0,0.2)]"
+        style="ml-0 mr-auto mt-16 mb-0 w-[400px] h-[calc(100vh_-_64px)] bg-[#5d5b76] relative left-0 bottom-0 modal backdrop:bg-[rgba(0,0,0,0.2)] max-sm:w-full z-[5]"
         open={isOpened}
         onClose={burgerClose}
         root="modalId"

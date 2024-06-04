@@ -66,12 +66,12 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
   return (
     <>
       <div className="w-full mx-auto mb-2 border-[3px] rounded-xl border-solid border-[#bccde2]">
-        <header className="bg-[#bccde2] py-2 flex justify-around items-center gap-2.5">
+        <div className="bg-[#bccde2] py-2 flex justify-around items-center gap-2.5">
           <p className="max-w-[150px] px-2">{time}</p>
           {
             isFull
               ? <Marquee className="w-full h-[25px] text-center"><b>{summary}</b></Marquee>
-              : <p className="w-full h-[25px] overflow-y-hidden text-center"><b>{summary}</b></p>
+              : <p className="w-full h-[25px] overflow-hidden text-center"><b>{summary}</b></p>
           }
           <div className="flex justify-between items-center px-2 mx-2">
             <span className={typeClass}>{type}</span>
@@ -83,17 +83,17 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
               height={25}
             />
           </div>
-        </header>
+        </div>
 
         <p className="flex justify-around items-center text-left h-[150px] overflow-auto pt-2.5 px-1.5 py-0 bg-[white]">{text}</p>
 
-        <footer className="bg-[#bccde2] flex justify-center items-center flex-col">
-          <div className="flex justify-center items-center py-2">
+        <div className="bg-[#bccde2] flex justify-center items-center flex-col">
+          <div className="flex justify-center items-center py-2 gap-3">
             <Button
               type="button"
               action={editOpen}
               text="Edit"
-              style="btn-primary bg-[#528fd9] transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300"
+              style="btn-primary bg-[#528fd9] transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300 max-sm:w-[96px] max-sm:h-[26px]"
               link="/post/posts"
               isButton={true}
             />
@@ -101,7 +101,7 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
               type="button"
               action={deletePostHandler}
               text="Delete"
-              style="btn-primary bg-[#de5050] mx-3 transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300"
+              style="btn-primary bg-[#de5050] transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300 max-sm:w-[96px] max-sm:h-[26px]"
               link="/post/posts"
               isButton={true}
             />
@@ -109,7 +109,7 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
               type="button"
               action={favoriteStatusChangeHandler}
               text={!isFavorite ? 'Favorite' : 'Unfavourite'}
-              style={!isFavorite ? "btn-primary bg-[#dede01] transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300" : "btn-primary bg-[gold] transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300"}
+              style={!isFavorite ? "btn-primary bg-[#dede01] transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300 max-sm:w-[96px] max-sm:h-[26px]" : "btn-primary bg-[gold] transition ease-in-out hover:-translate-y-1 hover:scale-110 delay-300 max-sm:w-[96px] max-sm:h-[26px]"}
               link="/post/posts"
               isButton={true}
             />
@@ -117,11 +117,11 @@ const Post: React.FC<PostProps> = ({id, summary, time, type, text, isFavorite}) 
           <div>
             <Checkbox action={changeFullStateHandler}/>
           </div>
-        </footer>
+        </div>
       </div>
 
       <Modal
-        style="bg-[#b2c2cd] h-[400px] w-[960px] p-[15px] rounded-xl backdrop:bg-[rgba(0,0,0,0.4)] md:max-lg:w-[768px] sm:max-md:w-[600px] max-sm:w-[540px] modal"
+        style="bg-[#b2c2cd] h-[400px] w-[960px] z-[5] p-[15px] rounded-xl backdrop:bg-[rgba(0,0,0,0.4)] max-sm:w-full modal"
         open={isOpened}
         onClose={editClose}
         root="modalId"
